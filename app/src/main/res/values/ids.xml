@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textInputLayout7" type="id" />
+    <item name="userEmail" type="id" />
+    <item name="textInputLayout6" type="id" />
+    <item name="userPassword" type="id" />
+    <item name="login" type="id" />
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">BookStore</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <string name="get_on_board">Get on board</string>
+    <string name="already_a_member">Already a member?</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="welcome_to_bookstore">Welcome to BookStore</string>
+</resources>
