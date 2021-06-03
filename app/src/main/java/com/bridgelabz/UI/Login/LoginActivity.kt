@@ -11,6 +11,7 @@ import com.bridgelabz.UI.homedashboard.HomeDashboardActivity
 import com.bridgelabz.UI.register.RegisterActivity
 import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
+import org.json.simple.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var userEmail: EditText
@@ -49,9 +50,9 @@ class LoginActivity : AppCompatActivity() {
         val userDataManager = UserDataManager(this)
         val jsonArray = userDataManager.readDataFromJSONFile()
 
-        for(i in 0 until jsonArray!!.length()){
-            val obj = jsonArray.getJSONObject(i)
-            if(email == obj.getString("email") &&  password == obj.getString("password")){
+        for(i in 0 until jsonArray.size){
+            val obj = jsonArray[i] as JSONObject
+            if(email == obj["email"] &&  password == obj["password"]){
                 isLoginIn = true
                 break
             }
