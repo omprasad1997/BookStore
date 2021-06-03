@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.bridgelabz.UI.homedashboard.HomeDashboardActivity
 import com.bridgelabz.UI.register.RegisterActivity
+import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
 
 class LoginActivity : AppCompatActivity() {
@@ -33,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 //    private fun isEmailValid(email: String): Boolean = email.isEmpty() || !email.contains("@gmail.com")
 //    private fun isPasswordValid(password: String): Boolean = password.isEmpty()
 
-    private fun userLogin()  {
+    private fun userLogin() {
         val email = userEmail.text.toString()
         val password = userPassword.text.toString()
 //        when {
@@ -44,27 +46,27 @@ class LoginActivity : AppCompatActivity() {
 //                userPassword.error = "Password is incorrect"
 //            }
 //        }
-//        val userDataManager = UserDataManager(this)
-//        val jsonArray = userDataManager.readDataFromJSONFile()
+        val userDataManager = UserDataManager(this)
+        val jsonArray = userDataManager.readDataFromJSONFile()
 
-//        for(i in 0..jsonArray!!.length()){
-//            val obj = jsonArray.getJSONObject(i)
-//            if(email == obj.getString("email") &&  password == obj.getString("password")){
-//                isLoginIn = true
-//                break
-//            }
-//        }
+        for(i in 0 until jsonArray!!.length()){
+            val obj = jsonArray.getJSONObject(i)
+            if(email == obj.getString("email") &&  password == obj.getString("password")){
+                isLoginIn = true
+                break
+            }
+        }
     }
 
     private fun checkLogin() {
         login.setOnClickListener {
             userLogin()
-//            if(isLoginIn){
+           if(isLoginIn){
                 val intent = Intent(this, HomeDashboardActivity::class.java)
                 startActivity(intent)
-//            }else {
-//                Toast.makeText(this , "Email or Password is incorrect",Toast.LENGTH_LONG).show()
-//            }
+            }else {
+                Toast.makeText(this , "Email or Password is incorrect",Toast.LENGTH_LONG).show()
+            }
         }
     }
 

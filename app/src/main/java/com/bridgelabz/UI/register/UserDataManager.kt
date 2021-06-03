@@ -1,14 +1,13 @@
 package com.bridgelabz.UI.register
 
 import android.content.Context
-import android.util.JsonWriter
+import android.util.Log
 import com.bridgelabz.UI.model.UserRegistrationModel
 import com.google.gson.JsonParser
 import org.json.JSONArray
 import org.json.JSONObject
+import org.json.simple.parser.JSONParser
 import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
 
 class UserDataManager(private val context: Context) {
 
@@ -21,7 +20,7 @@ class UserDataManager(private val context: Context) {
         obj.put("confirmPassword", users.confirmPassword)
 
         val jsonArray = readDataFromJSONFile()
-        jsonArray?.put(obj)
+        jsonArray.put(obj)
 
         val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
         fos.write(jsonArray.toString().toByteArray())
@@ -29,19 +28,28 @@ class UserDataManager(private val context: Context) {
         return true
     }
 
-     fun readDataFromJSONFile() : JSONArray? {
+     fun readDataFromJSONFile() : JSONArray {
         val path = context.filesDir.absolutePath
         val file = File(path, "use_credential.json")
-        val data = file.readText()
-        val obj = JsonParser.parseString(data)
-        val jsonArray = (obj as? JSONArray) ?: JSONArray()
-//        for (i in 0..jsonArray.length()) {
+
+
+         //        for (i in 0..jsonArray.length()) {
 //            val obj = jsonArray.getJSONObject(i)
 //            val userName = obj.getString("userName")
 //            val email = obj.getString("email")
 //            val password = obj.getString("password")
 //            userList.add(UserRegistrationModel(userName, email, password))
 //        }
-        return jsonArray
+         Log.e("readFile", "File Exist ${file.exists()}")
+        return if(file.exists()) {
+            val data = file.readText()
+            Log.e("readFile", "Reading file $data")
+            val obj = JSONParser().parse(data)
+            Log.e("readFile", "Reading json obj ${(obj as? JSONArray)}")
+            (obj as? JSONArray) ?: JSONArray()
+        }else {
+             JSONArray()
+        }
     }
+
 }
