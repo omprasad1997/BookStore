@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#6F7CC5"
+    android:background="@drawable/curvy_shape"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bookImage"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/believe_in_yourself"
+                tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/bookName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="Book name"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/bookImage"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/bookAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:hint="Book Author"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/bookImage"
+                app:layout_constraintTop_toBottomOf="@id/bookName"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:background="#0AFA14"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/bookImage"
+                app:layout_constraintTop_toBottomOf="@+id/bookAuthor"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/ratingOfBook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.74"
+                    android:layout_marginLeft="2dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="2dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/ic_baseline_star_rate_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reviewOfBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/rating"
+                app:layout_constraintTop_toBottomOf="@+id/bookAuthor"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/reviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="34"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="reviews"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="4dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lineaLayoutPriceOfBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/bookImage"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs."
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/discountedPriceOfBook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="762.5"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutDiscountedPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/lineaLayoutPriceOfBook"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="14dp"
+                tools:ignore="NotSibling">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs."
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/originalPriceOfBook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1065.5"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/linearLayoutDiscountedPrice"
+                app:layout_constraintTop_toTopOf="@id/linearLayoutDiscountedPrice"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:id="@+id/discountPriceInPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="28"
+                    android:textColor="#0C6710"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% off"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="#0C6710"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/addFavourite"
+        android:layout_gravity="right"
+        android:button="@drawable/favourite_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</androidx.cardview.widget.CardView>

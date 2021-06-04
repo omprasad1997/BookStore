@@ -1,4 +1,4 @@
-package com.bridgelabz.UI.Login
+package com.bridgelabz.UI.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.homedashboard.HomeDashboardActivity
 import com.bridgelabz.UI.register.RegisterActivity
 import com.bridgelabz.UI.register.UserDataManager
@@ -16,6 +17,7 @@ import org.json.simple.JSONObject
 class LoginActivity : AppCompatActivity() {
     private lateinit var userEmail: EditText
     private lateinit var userPassword: EditText
+    private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
     private lateinit var login: Button
     private var isLoginIn = false
 
@@ -30,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         userEmail    = findViewById(R.id.userEmail)
         userPassword = findViewById(R.id.userPassword)
         login        = findViewById(R.id.login)
+        sharedPreferenceHelper = SharedPreferenceHelper(this)
 
     }
 
@@ -39,14 +42,7 @@ class LoginActivity : AppCompatActivity() {
     private fun userLogin() {
         val email = userEmail.text.toString()
         val password = userPassword.text.toString()
-//        when {
-//            isEmailValid(email) -> {
-//                userEmail.error = "Email is not valid"
-//            }
-//            isPasswordValid(password) -> {
-//                userPassword.error = "Password is incorrect"
-//            }
-//        }
+
         val userDataManager = UserDataManager(this)
         val jsonArray = userDataManager.readDataFromJSONFile()
 
@@ -65,6 +61,8 @@ class LoginActivity : AppCompatActivity() {
            if(isLoginIn){
                 val intent = Intent(this, HomeDashboardActivity::class.java)
                 startActivity(intent)
+                this.sharedPreferenceHelper.setLoggedIn(true)
+                finish()
             }else {
                 Toast.makeText(this , "Email or Password is incorrect",Toast.LENGTH_LONG).show()
             }

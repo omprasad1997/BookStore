@@ -13,4 +13,9 @@
     <string name="register">Register</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
     <string name="welcome_to_bookstore">Welcome to BookStore</string>
+    <string name="wish_list">wishList</string>
+    <string name="cart">cart</string>
+    <string name="profile">Profile</string>
+    <string name="orders">Orders</string>
+    <string name="sign_out">Sign out</string>
 </resources>

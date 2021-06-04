@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.bridgelabz.UI.Login.LoginActivity
+import com.bridgelabz.UI.login.LoginActivity
 import com.bridgelabz.UI.model.UserRegistrationModel
 import com.bridgelabz.bookstore.R
 
@@ -107,6 +107,7 @@ class RegisterActivity : AppCompatActivity() {
             if(isRegisteredIn){
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                finish()
             }else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
             }
