@@ -16,4 +16,13 @@ class SharedPreferenceHelper(context: Context)  {
     }
 
     fun getLoggedIn() = sharedPreferences.getBoolean(Constants.KEY, false)
+
+    fun setLoggedInUserId(value: Long) {
+        with(sharedPreferences.edit()) {
+            putLong(Constants.LOGGED_IN_USER_ID, value)
+            apply()
+        }
+    }
+
+    fun getLoggedInUserId() = sharedPreferences.getLong(Constants.LOGGED_IN_USER_ID, -1)
 }

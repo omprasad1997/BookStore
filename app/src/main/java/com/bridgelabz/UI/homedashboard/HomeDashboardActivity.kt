@@ -1,5 +1,6 @@
 package com.bridgelabz.UI.homedashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -7,8 +8,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookFragment
 import com.bridgelabz.UI.cart.CartFragment
+import com.bridgelabz.UI.login.LoginActivity
 import com.bridgelabz.UI.wishlist.WishListFragment
 import com.bridgelabz.bookstore.R
 
@@ -16,6 +19,7 @@ class HomeDashboardActivity : AppCompatActivity() {
     private val bookFragment = BookFragment()
     private val cartFragment = CartFragment()
     private val wishListFragment = WishListFragment()
+    private lateinit  var sharedPreferenceHelper:  SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.home_dashboard_activity)
@@ -24,6 +28,7 @@ class HomeDashboardActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "BookStore"
+        sharedPreferenceHelper =  SharedPreferenceHelper(this)
         setBookFragment(bookFragment)
     }
 
@@ -44,6 +49,10 @@ class HomeDashboardActivity : AppCompatActivity() {
             }
             R.id.sign_out ->{
                 Toast.makeText(applicationContext, "click on Sign out", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                this.sharedPreferenceHelper.setLoggedIn(false)
+                finish()
                 return true
             }
             R.id.cart ->{
@@ -61,7 +70,7 @@ class HomeDashboardActivity : AppCompatActivity() {
 
     private fun setBookFragment(bookFragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_container, bookFragment)
+            replace(R.id.fragment_container, bookFragment).addToBackStack(null)
             commit()
         }
     }

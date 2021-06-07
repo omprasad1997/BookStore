@@ -2,29 +2,49 @@ package com.bridgelabz.UI.bookList
 
 import android.content.Context
 import android.util.Log
+import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.BookModel
+import com.bridgelabz.UI.model.BookResponseModel
+import com.bridgelabz.UI.model.UserRegistrationModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.json.simple.JSONObject
+import java.io.File
 import java.io.IOException
 import java.nio.charset.Charset
 
 class BookDataManager(private val context: Context?) {
     val TAG = "BookDataManager"
-    
-    fun getBookList(): ArrayList<BookModel> {
-        val bookList: ArrayList<BookModel> = ArrayList()
-        val jsonString = getJSONFromAssets()!!
-        val booksListType = object : TypeToken<Array<BookModel>>() {}.type
 
-        val booksObj: Array<BookModel> = Gson().fromJson(jsonString, booksListType)
+    fun getBookList(): List<BookModel> {
+        val jsonString = getJSONFromAssets()!!
+        val booksListType = object : TypeToken<ArrayList<BookResponseModel>>() {}.type
+
+        val user: UserRegistrationModel? = getLoggedIn()
+        val booksObj: ArrayList<BookResponseModel> = Gson().fromJson(jsonString, booksListType)
         Log.e(TAG, "bookObj: $booksObj")
 
-        booksObj.forEach {
-            bookList.add(it)
-            Log.e(TAG, "Books: $it")
+        val favouriteBookList = user?.favouriteBookList
+        Log.e(TAG, "print: $user" )
+
+        return booksObj.map {
+            BookModel(it).apply {
+                isFavourite = favouriteBookList!!.contains(it.bookId)
+            }
         }
-        return bookList
     }
+
+    private fun getLoggedIn(): UserRegistrationModel? {
+        val sharedPreferenceHelper = SharedPreferenceHelper(context!!)
+        val path = context.filesDir.absolutePath
+        val file = File(path, "use_credential.json")
+        val booksListType = object : TypeToken<Array<UserRegistrationModel>>() {}.type
+        val bookList: Array<UserRegistrationModel> = Gson().fromJson(file.readText(), booksListType)
+        return bookList.findLast {
+            (sharedPreferenceHelper.getLoggedInUserId() == it.id)
+        }
+    }
+
 
     private fun getJSONFromAssets(): String? {
 
@@ -44,3 +64,4 @@ class BookDataManager(private val context: Context?) {
         return json
     }
 }
+

@@ -1,4 +1,12 @@
 package com.bridgelabz.UI.model
 
-data class UserRegistrationModel(val userName:String, val email:String, val password:String, val confirmPassword:String = " ") {
-}
+import com.google.gson.annotations.SerializedName
+
+data class UserRegistrationModel(
+    var id:Long = 0,
+    val userName: String,
+    val email: String,
+    val password: String,
+    val confirmPassword: String = " ",
+    @SerializedName("FavouriteBooksList")val favouriteBookList: ArrayList<Int>
+)

@@ -1,13 +1,13 @@
 package com.bridgelabz.UI.register
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.bridgelabz.UI.login.LoginActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.bridgelabz.UI.model.UserRegistrationModel
 import com.bridgelabz.bookstore.R
 
@@ -17,6 +17,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var enteredPassword: EditText
     private lateinit var enteredConfirmPassword: EditText
     private lateinit var register: Button
+    private val TAG = "RegisterActivity"
+    private var favouriteBookList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +44,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun isUserNameValid(userName: String): Boolean {
+
         if (userName.isEmpty() || (userName.length < 3)) {
             enteredUserName.error = "Your name is not valid"
         } else {
+            Log.e(TAG, "isUserNameValid: true" )
             return true
         }
         return false
@@ -52,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun isEmailValid(email: String): Boolean {
-        if (email.isEmpty() || !email.contains("@gmail.com")) {
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             enteredEmail.error = "Email is not valid"
         } else {
             return true
@@ -93,7 +97,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkAndWriteDataToJSONFile(userName: String, userEmail: String, userPassword: String, userConfirmPassword: String) {
-        val userRegistrationModelClass = UserRegistrationModel(userName, userEmail, userPassword, userConfirmPassword)
+        val userList = ArrayList<UserRegistrationModel>()
+        val userRegistrationModelClass = UserRegistrationModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList)
+        userList.add(userRegistrationModelClass)
         val userDataManager = UserDataManager(applicationContext)
 
         val isRegisteredIn = userDataManager.checkingDataFromJSONFile(userRegistrationModelClass)
@@ -103,15 +109,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkRegistration(isRegisteredIn: Boolean) {
-//        register.setOnClickListener {
             if(isRegisteredIn){
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
                 finish()
             }else {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
             }
-//        }
     }
 
     fun alreadyRegistered(view: View) {

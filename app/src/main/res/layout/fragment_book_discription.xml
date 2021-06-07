@@ -6,14 +6,64 @@
     tools:context="com.bridgelabz.UI.bookList.BookDescriptionFragment">
 
 
+    <ImageView
+        android:id="@+id/imageOfBook"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/bookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageOfBook" />
+
+    <TextView
+        android:id="@+id/bookAuthorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bookTitle"
+        app:layout_constraintTop_toBottomOf="@+id/bookTitle" />
+
+    <TextView
+        android:id="@+id/priceOfBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bookAuthorName"
+        app:layout_constraintTop_toBottomOf="@+id/bookAuthorName" />
+
+    <Button
+        android:id="@+id/addToCartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Add To Cart"
+        android:enabled="true"
+        android:background="@drawable/curvy_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/priceOfBook"
+        app:layout_constraintTop_toBottomOf="@+id/priceOfBook" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

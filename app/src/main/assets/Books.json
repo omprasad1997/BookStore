@@ -1,7 +1,8 @@
 [
   {
+    "Book Id"  : 1,
     "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
+    "Book Author": "by Dr. Joseph Murphy ",
     "Book Image": "believe_in_yourself",
     "Rating": "3.74",
     "Review": "12",
@@ -10,103 +11,47 @@
     "Discount in Percentage": "28"
   },
   {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
+    "Book Id"  : 2,
+    "Book Name": "You Can Win",
+    "Book Author": "by Shiv Khera ",
+    "Book Image": "you_can_win",
+    "Rating": "4.74",
+    "Review": "16",
+    "Discounted Price": "125",
+    "Original Price": "275",
+    "Discount in Percentage": "55"
   },
   {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
+    "Book Id"  : 3,
+    "Book Name": "The Power of Habit ",
+    "Book Author": "by Charles Duhigg  ",
+    "Book Image": "power_of_habit",
+    "Rating": "4.11",
+    "Review": "20",
+    "Discounted Price": "99",
+    "Original Price": "150",
+    "Discount in Percentage": "34"
   },
   {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
+    "Book Id"  : 4,
+    "Book Name": "The 5 AM Club",
+    "Book Author": "by Robin Sharma ",
+    "Book Image": "the_5am_club",
+    "Rating": "4.0",
+    "Review": "18",
+    "Discounted Price": "247",
+    "Original Price": "350",
+    "Discount in Percentage": "29%"
   },
   {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
-  },
-  {
-    "Book Name": "Believe in Yourself ",
-    "Book Author": "Dr. Joseph Murphy ",
-    "Book Image": "believe_in_yourself",
-    "Rating": "3.74",
-    "Review": "12",
-    "Discounted Price": "762.5",
-    "Original Price": "1067.5",
-    "Discount in Percentage": "28"
+    "Book Id"  : 5,
+    "Book Name": "Learning How to Fly",
+    "Book Author": "by A.P.J. Abdul Kalam ",
+    "Book Image": "learning_how_to_fly",
+    "Rating": "4.8",
+    "Review": "35",
+    "Discounted Price": "167",
+    "Original Price": "195 ",
+    "Discount in Percentage": "14"
   }
 ]

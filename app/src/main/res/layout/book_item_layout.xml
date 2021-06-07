@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:hint="Book name"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/bookImage"
                 tools:ignore="MissingConstraints" />
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:hint="Book Author"
-                android:textSize="18dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/bookImage"
                 app:layout_constraintTop_toBottomOf="@id/bookName"
@@ -69,10 +69,10 @@
                     android:id="@+id/ratingOfBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3.74"
+                    android:layout_marginStart="2dp"
                     android:layout_marginLeft="2dp"
-                    android:textSize="16sp"
-                    android:layout_marginStart="2dp" />
+                    android:text="3.74"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="34"
-                    android:textSize="16sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/addFavourite"
+        android:id="@+id/addFavouriteButton"
         android:layout_gravity="right"
         android:button="@drawable/favourite_selector"
         android:layout_width="wrap_content"

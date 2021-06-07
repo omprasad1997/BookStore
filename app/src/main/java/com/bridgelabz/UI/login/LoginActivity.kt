@@ -36,9 +36,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-//    private fun isEmailValid(email: String): Boolean = email.isEmpty() || !email.contains("@gmail.com")
-//    private fun isPasswordValid(password: String): Boolean = password.isEmpty()
-
     private fun userLogin() {
         val email = userEmail.text.toString()
         val password = userPassword.text.toString()
