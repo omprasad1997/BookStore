@@ -44,6 +44,7 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
         userDataManager = UserDataManager(itemView.context)
         sharedPreferenceHelper = SharedPreferenceHelper(itemView.context)
 
+        val bookId = bookResponseModel.bookId
         if (checked) {
             val jsonArray = userDataManager.readDataFromJSONFile()
             val favouriteList = ArrayList<Int>()
@@ -56,7 +57,7 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
                 )
                 if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
                     val favouriteList = usersJSONObj["FavouriteBooksList"] as ArrayList<Int>
-                    favouriteList.add(bookResponseModel.bookId)
+                    favouriteList.add(bookId)
                     usersJSONObj["FavouriteBooksList"] = favouriteList
 //                    jsonArray.add(usersJSONObj)
 //
@@ -76,14 +77,19 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
             for (i in 0 until jsonArray.size) {
                 val obj = jsonArray[i] as JSONObject
                 Log.e(TAG, "favouriteChecked: ${sharedPreferenceHelper.getLoggedInUserId()} : $obj")
+                var bookIndex: Int = -1
                 if (sharedPreferenceHelper.getLoggedInUserId() == obj["id"]) {
                     favouriteList = obj["FavouriteBooksList"] as ArrayList<Int>
-                    val index = favouriteList.indexOf(bookResponseModel.bookId)
+                    favouriteList.forEachIndexed { index, value ->
+                        if (value == bookId) bookIndex = index
+                    }
 
-                    Log.e(TAG, "favouriteChecked:index $index ")
+
+                    Log.e(TAG, "favouriteChecked:index $bookIndex ")
                     Log.e(TAG, "favouriteChecked: $favouriteList ")
-                    Log.e(TAG, "favouriteChecked: ${bookResponseModel.bookId}")
-                     val isRemoved = favouriteList.removeAt(index)
+                    Log.e(TAG, "favouriteChecked: $bookId")
+                    if (bookIndex != -1) favouriteList.removeAt(bookIndex)
+                    obj["FavouriteBooksList"] = favouriteList
 //                    jsonArray.add(obj)
 
                     val fos =
