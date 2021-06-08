@@ -55,7 +55,7 @@ class HomeDashboardActivity : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.cart ->{
+            R.id.cartIncrementButton ->{
                 setBookFragment(cartFragment)
                 Toast.makeText(applicationContext, "click on cart", Toast.LENGTH_LONG).show()
                 return true
@@ -73,5 +73,10 @@ class HomeDashboardActivity : AppCompatActivity() {
             replace(R.id.fragment_container, bookFragment).addToBackStack(null)
             commit()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

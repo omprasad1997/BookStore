@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.BookModel
-import com.bridgelabz.UI.model.BookResponseModel
 import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
 import com.bumptech.glide.Glide
@@ -36,8 +35,6 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
         itemView.setOnClickListener {
             if (::bookResponseModel.isInitialized) handler(bookResponseModel)
         }
-
-
     }
 
     private fun favouriteChecked(bookResponseModel: BookModel, checked: Boolean) {
@@ -47,7 +44,6 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
         val bookId = bookResponseModel.bookId
         if (checked) {
             val jsonArray = userDataManager.readDataFromJSONFile()
-            val favouriteList = ArrayList<Int>()
 
             for (i in 0 until jsonArray.size) {
                 val usersJSONObj = jsonArray[i] as JSONObject
@@ -61,8 +57,7 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
                     usersJSONObj["FavouriteBooksList"] = favouriteList
 //                    jsonArray.add(usersJSONObj)
 //
-                    val fos =
-                        itemView.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
+                    val fos = itemView.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
                     fos.write(jsonArray.toString().toByteArray())
                     fos.close()
                     break

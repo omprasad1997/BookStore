@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/cart"
+        android:id="@+id/cartIncrementButton"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="@string/cart"
         app:showAsAction="ifRoom" />

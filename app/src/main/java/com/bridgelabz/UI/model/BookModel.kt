@@ -1,7 +1,5 @@
 package com.bridgelabz.UI.model
 
-import com.google.gson.annotations.SerializedName
-
 data class BookModel(
     var bookId: Int,
     var bookName: String,
@@ -12,7 +10,8 @@ data class BookModel(
     var discountedPrice: String,
     var originalPrice: String,
     var discountInPercentage: String,
-    var isFavourite: Boolean = false
+    var isFavourite: Boolean = false,
+    var isCarted: Boolean = false
 ) {
     constructor(bookResponseModel: BookResponseModel) : this(
         bookResponseModel.bookId,

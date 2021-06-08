@@ -11,7 +11,6 @@ import java.io.File
 
 class UserDataManager(private val context: Context) {
     private lateinit var sharedPreferences: SharedPreferenceHelper
-    private var favouriteBookList  = ArrayList<Int>()
 
     fun checkingDataFromJSONFile(users: UserRegistrationModel): Boolean {
 
@@ -20,13 +19,21 @@ class UserDataManager(private val context: Context) {
         val currentUserId =  System.currentTimeMillis()
         val obj = JSONObject()
         val favouriteArray = JSONArray()
+        val cartedArray  = JSONArray()
+//        val bookQuantity = 0
+//        val bookId = null
+//        val bookQuantityAndIdObj = JSONObject()
+//        bookQuantityAndIdObj["bookQuantity"] = bookQuantity
+//        bookQuantityAndIdObj["bookId"]  =  bookId
+//        cartedArray.add(bookQuantityAndIdObj)
 
-        obj.put("id", currentUserId)
-        obj.put("userName", users.userName)
-        obj.put("email", users.email)
-        obj.put("password", users.password)
-        obj.put("confirmPassword", users.confirmPassword)
-        obj.put("FavouriteBooksList", favouriteArray)
+        obj["id"] = currentUserId
+        obj["userName"] = users.userName
+        obj["email"] = users.email
+        obj["password"] = users.password
+        obj["confirmPassword"] = users.confirmPassword
+        obj["FavouriteBooksList"] = favouriteArray
+        obj["CartBooksList"] = cartedArray
 
         val jsonArray = readDataFromJSONFile()
         jsonArray.add(obj)

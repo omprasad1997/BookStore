@@ -19,6 +19,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var register: Button
     private val TAG = "RegisterActivity"
     private var favouriteBookList = ArrayList<Int>()
+    private var cartBookList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +99,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun checkAndWriteDataToJSONFile(userName: String, userEmail: String, userPassword: String, userConfirmPassword: String) {
         val userList = ArrayList<UserRegistrationModel>()
-        val userRegistrationModelClass = UserRegistrationModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList)
+        val userRegistrationModelClass = UserRegistrationModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList)
         userList.add(userRegistrationModelClass)
         val userDataManager = UserDataManager(applicationContext)
 

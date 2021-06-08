@@ -8,10 +8,10 @@ import com.bridgelabz.UI.model.BookResponseModel
 import com.bridgelabz.UI.model.UserRegistrationModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.json.simple.JSONObject
 import java.io.File
 import java.io.IOException
 import java.nio.charset.Charset
+
 
 class BookDataManager(private val context: Context?) {
     val TAG = "BookDataManager"
@@ -25,7 +25,7 @@ class BookDataManager(private val context: Context?) {
         Log.e(TAG, "bookObj: $booksObj")
 
         val favouriteBookList = user?.favouriteBookList
-        Log.e(TAG, "print: $user" )
+        Log.e(TAG, "print: $user")
 
         return booksObj.map {
             BookModel(it).apply {
@@ -33,6 +33,35 @@ class BookDataManager(private val context: Context?) {
             }
         }
     }
+
+    private fun getCartBookList(): List<BookModel> {
+        val jsonString = getJSONFromAssets()!!
+        val booksListType = object : TypeToken<ArrayList<BookResponseModel>>() {}.type
+
+        val user: UserRegistrationModel? = getLoggedIn()
+        val booksObj: ArrayList<BookResponseModel> = Gson().fromJson(jsonString, booksListType)
+        Log.e(TAG, "bookObj: $booksObj")
+
+        val cartBookList = user?.cartBookList
+        Log.e(TAG, "print: $user")
+
+        return booksObj.map {
+            BookModel(it).apply {
+                isCarted = cartBookList!!.contains(it.bookId)
+            }
+        }
+    }
+
+    fun getCartItemBooks(): ArrayList<BookModel>? {
+        val cartItemBooks: ArrayList<BookModel> = ArrayList()
+        for (book in getCartBookList()) {
+            if (book.isCarted) {
+                cartItemBooks.add(book)
+            }
+        }
+        return cartItemBooks
+    }
+
 
     private fun getLoggedIn(): UserRegistrationModel? {
         val sharedPreferenceHelper = SharedPreferenceHelper(context!!)
