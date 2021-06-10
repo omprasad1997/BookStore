@@ -27,11 +27,12 @@ class CartViewHolder(
 
 
     fun bind(cartModel: CartModel) {
-
         var itemCount = cartModel.bookQuantity
         cartBookName.text = cartModel.book.bookName
         cartBookAuthor.text = cartModel.book.bookAuthor
         cartBookPrice.text = cartModel.book.discountedPrice
+        cartBookCount.text = itemCount.toString()
+        cartBookPrice.text = (cartModel.book.discountedPrice.toDouble() * itemCount).toString()
         Glide.with(itemView.context)
             .load(
                 itemView.context.resources.getIdentifier(
@@ -42,14 +43,14 @@ class CartViewHolder(
             )
             .into(cartBookImage)
 
-        var totalPrice = 0.0
+        var totalPrice = cartModel.book.discountedPrice.toDouble() * itemCount
 
         cartIncrementButton.setOnClickListener {
-//            itemCount++
+            itemCount++
 //            cartModel.bookQuantity = itemCount
-            cartBookCount.text = itemCount.toString()
-            cartBookPrice.text = (cartModel.book.discountedPrice.toDouble() * itemCount).toString()
             totalPrice += cartModel.book.discountedPrice.toDouble()
+            cartBookCount.text = itemCount.toString()
+            cartBookPrice.text = totalPrice.toString()
             Log.e(TAG, "bind:cartIncrement TotalPrice: $totalPrice")
             cartItemIncrementHandler(cartModel.book.bookId)
         }
@@ -59,7 +60,8 @@ class CartViewHolder(
 //            cartModel.bookQuantity = itemCount
             cartBookCount.text = itemCount.toString()
             Log.e(TAG, "bind:cartDecrement TotalPrice: $totalPrice")
-            cartBookPrice.text = (totalPrice - cartModel.book.discountedPrice.toDouble()).toString()
+            totalPrice -= cartModel.book.discountedPrice.toDouble()
+            cartBookPrice.text = totalPrice.toString()
             cartItemDecrementHandler(adapterPosition, cartModel.book.bookId)
         }
     }

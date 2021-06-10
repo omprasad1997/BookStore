@@ -1,7 +1,6 @@
 package com.bridgelabz.UI.cart
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -56,17 +54,12 @@ class CartFragment : Fragment() {
         val bookDataManager = BookDataManager(view.context)
         cartRecyclerView.layoutManager = LinearLayoutManager(view.context) // require context
         val cartItemBookList = bookDataManager.getCartItemBooks()
-        cartAdapter = CartAdapter(cartItemBookList, cartItemDecrementHandler = { position: Int, bookId: Int ->
-            if(position<=1){
-                cartAdapter.remove(position)
+        cartAdapter =
+            CartAdapter(cartItemBookList, cartItemDecrementHandler = { position: Int, bookId: Int ->
+                removeQuantityAndBookIdToFile(context!!, bookId, position)
+            }, cartItemIncrementHandler = { bookId: Int ->
                 addQuantityAndBookIdToFile(context!!, bookId)
-            }else{
-                addQuantityAndBookIdToFile(context!!, bookId)
-            }
-
-        }, cartItemIncrementHandler = { bookId: Int ->
-            addQuantityAndBookIdToFile(context!!, bookId)
-        })
+            })
 
         val itemPresentInCart = checkBookPresentInCart(view)
         if (itemPresentInCart) {
@@ -75,7 +68,7 @@ class CartFragment : Fragment() {
                 if (checkForAddress(it)) {
                     activity?.supportFragmentManager?.beginTransaction()?.replace(
                         R.id.fragment_container, addressFragment
-                    )?.commit()
+                    )?.addToBackStack(null)?.commit()
                 } else {
                     activity?.supportFragmentManager?.beginTransaction()?.replace(
                         R.id.fragment_container, pickDeliveryAddressFragment
@@ -117,6 +110,54 @@ class CartFragment : Fragment() {
                             "addQuantityAndBookIdToFile:bookId $bookId, bookQuantity $bookQuantity"
                         )
                         cartBookListJSONObj["bookQuantity"] = bookQuantity
+                        break
+                    }
+                }
+
+                val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
+                fos.write(jsonArray.toString().toByteArray())
+                fos.close()
+                break
+            }
+        }
+    }
+
+    private fun removeQuantityAndBookIdToFile(
+        context: Context,
+        bookId: Int,
+        position: Int
+    ) {
+        val sharedPreferenceHelper = SharedPreferenceHelper(context)
+        val userDataManager = UserDataManager(context)
+        val jsonArray = userDataManager.readDataFromJSONFile()
+
+        for (i in 0 until jsonArray.size) {
+            val usersJSONObj = jsonArray[i] as JSONObject
+            Log.e(
+                TAG,
+                "Quantity and book id check: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
+            )
+            if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
+                val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
+                Log.e(TAG, "addQuantityAndBookIdToFile: Inside logged In user if")
+                for (index in 0 until cartBookList.size) {
+                    Log.e(TAG, "addQuantityAndBookIdToFile: Inside cart for loop")
+                    val cartBookListJSONObj = cartBookList[index] as JSONObject
+                    if (bookId == cartBookListJSONObj["bookId"].toString().toInt()) {
+                        val bookQuantity =
+                            cartBookListJSONObj["bookQuantity"].toString().toInt()
+                        Log.e(
+                            TAG,
+                            "addQuantityAndBookIdToFile:bookId $bookId, bookQuantity $bookQuantity"
+                        )
+                        if (bookQuantity == 1) {
+                            cartAdapter.remove(position)
+                            cartBookList.removeAt(index)
+                            break
+                        }
+
+                        cartBookListJSONObj["bookQuantity"] = bookQuantity - 1
+                        break
                     }
                 }
 

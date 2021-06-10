@@ -91,7 +91,7 @@ class AddressFragment : Fragment() {
         addressToolbar.title = "Address"
         addressToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         addressToolbar.setNavigationOnClickListener { //handle any click event
-            parentFragmentManager.popBackStack(Constants.BACK_STACK_KEY_BOOK_LIST, 0)
+            activity?.supportFragmentManager?.popBackStack()
         }
     }
 

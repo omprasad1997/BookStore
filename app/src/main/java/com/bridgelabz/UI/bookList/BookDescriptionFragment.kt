@@ -62,6 +62,7 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
         bookTitle.text = book.bookName
         bookAuthorName.text = book.bookAuthor
         priceOfBook.text = book.originalPrice
+        addToCartButton.isEnabled = !book.isCarted
         Glide.with(requireContext())
             .load(
                 requireContext().resources.getIdentifier(

@@ -83,7 +83,7 @@
 
             <ImageView
                 android:id="@+id/cartIncrementButton"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
@@ -95,7 +95,7 @@
 
             <ImageView
                 android:id="@+id/cartDecrementButton"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
@@ -112,7 +112,8 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:text="1"
-                android:textSize="16sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/cartIncrementButton"
                 app:layout_constraintEnd_toStartOf="@+id/cartIncrementButton"
                 app:layout_constraintTop_toTopOf="@+id/cartIncrementButton" />

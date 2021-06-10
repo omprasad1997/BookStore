@@ -26,12 +26,14 @@ class BookDataManager(private val context: Context?) {
         Log.e(TAG, "bookObj: $booksObj")
 
         val favouriteBookList = user?.favouriteBookList
+        val cartBookIdsList = user?.cartBookList?.map { it.bookId }
 
         Log.e(TAG, "print: $user")
 
         return booksObj.map {
             BookModel(it).apply {
-                isFavourite = favouriteBookList!!.contains(it.bookId)
+                isFavourite = favouriteBookList?.contains(it.bookId) ?: false
+                isCarted = cartBookIdsList?.contains(it.bookId) ?: false
             }
         }
     }

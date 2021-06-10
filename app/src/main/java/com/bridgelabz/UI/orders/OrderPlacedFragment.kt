@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookDataManager
@@ -53,7 +54,10 @@ class OrderPlacedFragment : Fragment() {
 
         continueShoppingButton.setOnClickListener {
 //            addToOrders(it)
-            parentFragmentManager.popBackStack(Constants.BACK_STACK_KEY_BOOK_LIST, 0)
+            parentFragmentManager.popBackStack(
+                Constants.BACK_STACK_KEY_BOOK_LIST,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
 //            beginTransaction()?.replace(
 //                R.id.fragment_container, BookFragment()
 //            )?.commit()
