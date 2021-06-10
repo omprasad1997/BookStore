@@ -9,5 +9,5 @@ data class UserRegistrationModel(
     val password: String,
     val confirmPassword: String = " ",
     @SerializedName("FavouriteBooksList")val favouriteBookList: ArrayList<Int>,
-    @SerializedName("CartBooksList")val cartBookList: ArrayList<Int>
+    @SerializedName("CartBooksList")val cartBookList: ArrayList<CartResponseModel>
 )

@@ -3,7 +3,6 @@ package com.bridgelabz.UI.cart
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bridgelabz.UI.bookList.adapter.BookViewHolder
 import com.bridgelabz.UI.model.BookModel
 import com.bridgelabz.bookstore.R
 
