@@ -1,6 +1,5 @@
 package com.bridgelabz.UI.wishlist
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -34,7 +32,7 @@ class WishListFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_wish_list, container, false)
         initViews(view)
-        onBackPressed(view)
+        onBackPressed()
         return view
     }
 
@@ -71,7 +69,7 @@ class WishListFragment : Fragment() {
         return favouriteBooks
     }
 
-    private fun onBackPressed(view: View) {
+    private fun onBackPressed() {
 
         wishListToolbar.title = "WishList"
         wishListToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)

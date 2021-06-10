@@ -5,6 +5,7 @@ import android.util.Log
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.BookModel
 import com.bridgelabz.UI.model.BookResponseModel
+import com.bridgelabz.UI.model.CartModel
 import com.bridgelabz.UI.model.UserModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -47,7 +48,7 @@ class BookDataManager(private val context: Context?) {
         val cartBookIds = cartBookList?.map {
             it.bookId
         } ?: emptyList()
-            Log.e(TAG, "print: $user")
+        Log.e(TAG, "print: $user")
 
         return booksObj.map {
             BookModel(it).apply {
@@ -56,11 +57,19 @@ class BookDataManager(private val context: Context?) {
         }
     }
 
-    fun getCartItemBooks(): ArrayList<BookModel>? {
-        val cartItemBooks: ArrayList<BookModel> = ArrayList()
-        for (book in getCartBookList()) {
-            if (book.isCarted) {
-                cartItemBooks.add(book)
+    fun getCartItemBooks(): ArrayList<CartModel> {
+        val loggedInUser = getLoggedIn() ?: return ArrayList()
+        val cartItemBooks: ArrayList<CartModel> = ArrayList()
+        val cartResponses = loggedInUser.cartBookList
+        val books = getBookList()
+        val bookIds: List<Int> = books.map {
+            it.bookId
+        }
+        cartResponses.forEachIndexed { index, cartResponseModel ->
+            if (bookIds.contains(cartResponseModel.bookId)) {
+                val indexOfBookId = bookIds.indexOf(cartResponseModel.bookId)
+                val element = CartModel(cartResponseModel.quantityOfBook, books[indexOfBookId])
+                cartItemBooks.add(element)
             }
         }
         return cartItemBooks
@@ -72,6 +81,7 @@ class BookDataManager(private val context: Context?) {
         val file = File(path, "use_credential.json")
         val booksListType = object : TypeToken<Array<UserModel>>() {}.type
         val bookList: Array<UserModel> = Gson().fromJson(file.readText(), booksListType)
+        Log.e(TAG, "Inside getLoggedIn: bookList")
         return bookList.findLast {
             (sharedPreferenceHelper.getLoggedInUserId() == it.id)
         }
@@ -94,5 +104,6 @@ class BookDataManager(private val context: Context?) {
         }
         return json
     }
+
 }
 

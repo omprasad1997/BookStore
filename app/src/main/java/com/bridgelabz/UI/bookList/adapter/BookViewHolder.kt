@@ -80,7 +80,6 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
                         if (value == bookId) bookIndex = index
                     }
 
-
                     Log.e(TAG, "favouriteChecked:index $bookIndex ")
                     Log.e(TAG, "favouriteChecked: $favouriteList ")
                     Log.e(TAG, "favouriteChecked: $bookId")

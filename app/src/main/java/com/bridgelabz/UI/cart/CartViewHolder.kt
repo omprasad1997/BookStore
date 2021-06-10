@@ -1,49 +1,66 @@
 package com.bridgelabz.UI.cart
 
+import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bridgelabz.UI.model.BookModel
+import com.bridgelabz.UI.model.CartModel
 import com.bridgelabz.bookstore.R
 import com.bumptech.glide.Glide
 
-class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class CartViewHolder(
+    view: View,
+    private val cartItemDecrementHandler: (position: Int, bookId: Int) -> Unit,
+    private val cartItemIncrementHandler: (bookId: Int) -> Unit
+) : RecyclerView.ViewHolder(view) {
 
-    private var TAG = "BookViewHolder"
-    private lateinit var bookModel: BookModel
+    private var TAG = "CartViewHolder"
     private val cartBookName = view.findViewById<TextView>(R.id.cartBookName)
     private val cartBookAuthor = view.findViewById<TextView>(R.id.cartBookAuthor)
     private val cartBookPrice = view.findViewById<TextView>(R.id.cartBookPrice)
     private val cartBookImage = view.findViewById<ImageView>(R.id.cartBookImage)
-//    private val cartProceedToBuyButton = view.findViewById<Button>(R.id.proceedToBuy)
-    private val cartIncrementButton = view.findViewById<Button>(R.id.cartIncrementButton)
-    private val cartDecrementButton = view.findViewById<Button>(R.id.cartDecrementButton)
 
-//    init{
-//
-//        cartProceedToBuyButton.setOnClickListener {
-//            if(::bookModel.isInitialized){
-//                buyHandler(bookModel)
-//            }
-//        }
-//    }
+    private val cartIncrementButton = view.findViewById<ImageView>(R.id.cartIncrementButton)
+    private val cartDecrementButton = view.findViewById<ImageView>(R.id.cartDecrementButton)
+    private val cartBookCount = view.findViewById<TextView>(R.id.cartBookCount)
 
-    fun bind(bookModel: BookModel) {
-//        this.bookModel = bookModel
-        cartBookName.text = bookModel.bookName
-        cartBookAuthor.text = bookModel.bookAuthor
-        cartBookPrice.text = bookModel.originalPrice
+
+    fun bind(cartModel: CartModel) {
+
+        var itemCount = cartModel.bookQuantity
+        cartBookName.text = cartModel.book.bookName
+        cartBookAuthor.text = cartModel.book.bookAuthor
+        cartBookPrice.text = cartModel.book.discountedPrice
         Glide.with(itemView.context)
             .load(
                 itemView.context.resources.getIdentifier(
-                    bookModel.bookImage,
+                    cartModel.book.bookImage,
                     "drawable",
                     itemView.context.packageName
                 )
             )
             .into(cartBookImage)
+
+        var totalPrice = 0.0
+
+        cartIncrementButton.setOnClickListener {
+//            itemCount++
+//            cartModel.bookQuantity = itemCount
+            cartBookCount.text = itemCount.toString()
+            cartBookPrice.text = (cartModel.book.discountedPrice.toDouble() * itemCount).toString()
+            totalPrice += cartModel.book.discountedPrice.toDouble()
+            Log.e(TAG, "bind:cartIncrement TotalPrice: $totalPrice")
+            cartItemIncrementHandler(cartModel.book.bookId)
+        }
+
+        cartDecrementButton.setOnClickListener {
+            itemCount--
+//            cartModel.bookQuantity = itemCount
+            cartBookCount.text = itemCount.toString()
+            Log.e(TAG, "bind:cartDecrement TotalPrice: $totalPrice")
+            cartBookPrice.text = (totalPrice - cartModel.book.discountedPrice.toDouble()).toString()
+            cartItemDecrementHandler(adapterPosition, cartModel.book.bookId)
+        }
     }
 }

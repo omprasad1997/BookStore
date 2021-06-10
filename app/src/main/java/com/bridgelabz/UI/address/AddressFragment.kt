@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
+import com.bridgelabz.Constants.Constants
 
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.UserModel
@@ -43,12 +45,10 @@ class AddressFragment : Fragment() {
         pickAddressButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(
                 R.id.fragment_container, OrderPlacedFragment()
-            )?.commit()
+            )?.addToBackStack(null)?.commit()
         }
         return view
     }
-
-
 
     private fun initViews(view: View) {
 
@@ -91,7 +91,7 @@ class AddressFragment : Fragment() {
         addressToolbar.title = "Address"
         addressToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         addressToolbar.setNavigationOnClickListener { //handle any click event
-            parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack(Constants.BACK_STACK_KEY_BOOK_LIST, 0)
         }
     }
 

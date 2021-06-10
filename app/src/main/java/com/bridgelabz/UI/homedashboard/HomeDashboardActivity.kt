@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookFragment
 import com.bridgelabz.UI.cart.CartFragment
@@ -63,7 +64,10 @@ class HomeDashboardActivity : AppCompatActivity() {
                 return true
             }
             R.id.cart ->{
-                setBookFragment(cartFragment)
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragment_container, cartFragment).addToBackStack(Constants.BACK_STACK_KEY_BOOK_LIST).
+                    commit()
+                }
                 Toast.makeText(applicationContext, "click on cart", Toast.LENGTH_LONG).show()
                 return true
             } R.id.wish_list ->{

@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -92,32 +94,33 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
         }
     }
 
+
     private fun setCartItem(bookId: Int, context: Context) {
         val userDataManager = UserDataManager(context)
         val sharedPreferenceHelper = SharedPreferenceHelper(context)
 
-            val jsonArray = userDataManager.readDataFromJSONFile()
+        val jsonArray = userDataManager.readDataFromJSONFile()
 
-            for (i in 0 until jsonArray.size) {
-                val usersJSONObj = jsonArray[i] as JSONObject
-                Log.e(
-                    TAG,
-                    "favouriteChecked: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
-                )
-                if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
-                    val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
-                    val cartJsonObj = JSONObject()
-                    cartJsonObj["bookQuantity"] = 1
-                    cartBookList.add(cartJsonObj)
-                    cartJsonObj["bookId"] = bookId
-                    usersJSONObj["CartBooksList"] = cartBookList
+        for (i in 0 until jsonArray.size) {
+            val usersJSONObj = jsonArray[i] as JSONObject
+            Log.e(
+                TAG,
+                "favouriteChecked: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
+            )
+            if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
+                val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
+                val cartJsonObj = JSONObject()
+                cartJsonObj["bookQuantity"] = 1
+                cartBookList.add(cartJsonObj)
+                cartJsonObj["bookId"] = bookId
+                usersJSONObj["CartBooksList"] = cartBookList
 
-                    val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
-                    fos.write(jsonArray.toString().toByteArray())
-                    fos.close()
-                    break
-                }
+                val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
+                fos.write(jsonArray.toString().toByteArray())
+                fos.close()
+                break
             }
+        }
     }
 
     override fun onDestroyView() {

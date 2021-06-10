@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
@@ -33,7 +34,6 @@ class CartFragment : Fragment() {
     private var addressFragment = AddressFragment()
     private var TAG = "CartFragment"
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +41,7 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
         initViews(view)
-        onBackPressed(view)
+        onBackPressed()
         return view
     }
 
@@ -56,22 +56,97 @@ class CartFragment : Fragment() {
         val bookDataManager = BookDataManager(view.context)
         cartRecyclerView.layoutManager = LinearLayoutManager(view.context) // require context
         val cartItemBookList = bookDataManager.getCartItemBooks()
-        cartAdapter =
-            CartAdapter(cartItemBookList!!)
-        cartProceedToBuyButton.setOnClickListener {
-            if (checkForAddress(it)) {
-                activity?.supportFragmentManager?.beginTransaction()?.replace(
-                    R.id.fragment_container, addressFragment
-                )?.commit()
-            } else {
-                activity?.supportFragmentManager?.beginTransaction()?.replace(
-                    R.id.fragment_container, pickDeliveryAddressFragment
-                )?.commit()
+        cartAdapter = CartAdapter(cartItemBookList, cartItemDecrementHandler = { position: Int, bookId: Int ->
+            if(position<=1){
+                cartAdapter.remove(position)
+                addQuantityAndBookIdToFile(context!!, bookId)
+            }else{
+                addQuantityAndBookIdToFile(context!!, bookId)
+            }
+
+        }, cartItemIncrementHandler = { bookId: Int ->
+            addQuantityAndBookIdToFile(context!!, bookId)
+        })
+
+        val itemPresentInCart = checkBookPresentInCart(view)
+        if (itemPresentInCart) {
+            cartProceedToBuyButton.visibility = VISIBLE
+            cartProceedToBuyButton.setOnClickListener {
+                if (checkForAddress(it)) {
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(
+                        R.id.fragment_container, addressFragment
+                    )?.commit()
+                } else {
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(
+                        R.id.fragment_container, pickDeliveryAddressFragment
+                    )?.addToBackStack(null)?.commit()
+                }
             }
         }
 
         cartRecyclerView.adapter = cartAdapter
         cartAdapter.notifyDataSetChanged()
+    }
+
+    private fun addQuantityAndBookIdToFile(
+        context: Context,
+        bookId: Int
+    ) {
+
+        val sharedPreferenceHelper = SharedPreferenceHelper(context)
+        val userDataManager = UserDataManager(context)
+        val jsonArray = userDataManager.readDataFromJSONFile()
+
+        for (i in 0 until jsonArray.size) {
+            val usersJSONObj = jsonArray[i] as JSONObject
+            Log.e(
+                TAG,
+                "Quantity and book id check: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
+            )
+            if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
+                val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
+                Log.e(TAG, "addQuantityAndBookIdToFile: Inside logged In user if")
+                for (index in 0 until cartBookList.size) {
+                    Log.e(TAG, "addQuantityAndBookIdToFile: Inside cart for loop")
+                    val cartBookListJSONObj = cartBookList[index] as JSONObject
+                    if (bookId == cartBookListJSONObj["bookId"].toString().toInt()) {
+                        val bookQuantity =
+                            cartBookListJSONObj["bookQuantity"].toString().toInt() + 1
+                        Log.e(
+                            TAG,
+                            "addQuantityAndBookIdToFile:bookId $bookId, bookQuantity $bookQuantity"
+                        )
+                        cartBookListJSONObj["bookQuantity"] = bookQuantity
+                    }
+                }
+
+                val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
+                fos.write(jsonArray.toString().toByteArray())
+                fos.close()
+                break
+            }
+        }
+    }
+
+    private fun checkBookPresentInCart(it: View): Boolean {
+        val userDataManager = UserDataManager(it.context)
+        val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
+
+        val jsonArray = userDataManager.readDataFromJSONFile()
+
+        for (i in 0 until jsonArray.size) {
+            val usersJSONObj = jsonArray[i] as JSONObject
+            Log.e(
+                TAG,
+                "CartBooksList Checked: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
+            )
+            if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
+                val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
+                Log.e(TAG, "checkForCartBooksList: ${cartBookList.size}")
+                if (cartBookList.size != 0) return true
+            }
+        }
+        return false
     }
 
     private fun checkForAddress(it: View): Boolean {
@@ -95,7 +170,7 @@ class CartFragment : Fragment() {
         return false
     }
 
-    private fun onBackPressed(view: View) {
+    private fun onBackPressed() {
 
         cartToolbar.title = "Cart"
         cartToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
@@ -109,10 +184,8 @@ class CartFragment : Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         (activity as? AppCompatActivity)?.supportActionBar?.show()
     }
-
 }

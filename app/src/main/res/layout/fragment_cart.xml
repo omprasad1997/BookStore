@@ -38,6 +38,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/curvy_shape"
+        android:visibility="invisible"
         android:text="Proceed to buy"
         android:textSize="12sp"
         app:backgroundTint="#F44336"

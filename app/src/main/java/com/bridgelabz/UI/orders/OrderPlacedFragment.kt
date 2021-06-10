@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookDataManager
 import com.bridgelabz.UI.bookList.BookFragment
@@ -52,9 +53,10 @@ class OrderPlacedFragment : Fragment() {
 
         continueShoppingButton.setOnClickListener {
 //            addToOrders(it)
-            activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.fragment_container, BookFragment()
-            )?.commit()
+            parentFragmentManager.popBackStack(Constants.BACK_STACK_KEY_BOOK_LIST, 0)
+//            beginTransaction()?.replace(
+//                R.id.fragment_container, BookFragment()
+//            )?.commit()
         }
     }
 
@@ -100,7 +102,7 @@ class OrderPlacedFragment : Fragment() {
         orderToolbar.title = "Order"
         orderToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         orderToolbar.setNavigationOnClickListener { //handle any click event
-            parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack(Constants.BACK_STACK_KEY_BOOK_LIST, 0)
         }
     }
 
