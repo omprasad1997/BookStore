@@ -42,9 +42,10 @@ class BookFragment : Fragment() {
             Toast.makeText(context, "book clicked ${it.bookName}", Toast.LENGTH_SHORT).show()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, BookDescriptionFragment(it))
-                commit()
+                    .addToBackStack(null).commit()
             }
         }
         recyclerView.adapter = bookAdapter
+
     }
 }

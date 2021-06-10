@@ -2,10 +2,6 @@ package com.bridgelabz.UI.model
 
 import com.google.gson.annotations.SerializedName
 
-//data class BookModel(val bookName: String = "", val bookAuthor: String= "", val bookImage:String= "",
-//                     val rating:String= "", val review:String= "", val discountedPrice:String= "",
-//                     val originalPrice: String= "", val discountInPercentage:String= "")
-
 data  class BookResponseModel (@SerializedName("Book Id") var bookId : Int,
                                @SerializedName("Book Name") var bookName : String,
                                @SerializedName("Book Author") var bookAuthor : String,

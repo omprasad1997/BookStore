@@ -8,7 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bridgelabz.UI.model.UserRegistrationModel
+import com.bridgelabz.UI.model.AddressResponseModel
+import com.bridgelabz.UI.model.CartResponseModel
+import com.bridgelabz.UI.model.OrderResponseModel
+import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.bookstore.R
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,8 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var enteredConfirmPassword: EditText
     private lateinit var register: Button
     private val TAG = "RegisterActivity"
-    private var favouriteBookList = ArrayList<Int>()
-    private var cartBookList = ArrayList<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +100,13 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkAndWriteDataToJSONFile(userName: String, userEmail: String, userPassword: String, userConfirmPassword: String) {
-        val userList = ArrayList<UserRegistrationModel>()
-        val userRegistrationModelClass = UserRegistrationModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList)
+        val favouriteBookList = ArrayList<Int>()
+        val cartBookList = ArrayList<CartResponseModel>()
+        val userList = ArrayList<UserModel>()
+        val userAddress = ArrayList<AddressResponseModel>()
+        val orderList = ArrayList<OrderResponseModel>()
+
+        val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList)
         userList.add(userRegistrationModelClass)
         val userDataManager = UserDataManager(applicationContext)
 

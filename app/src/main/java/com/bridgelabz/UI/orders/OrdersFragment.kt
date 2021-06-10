@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.bookstore.R
 
 
-class OrderFragment : Fragment() {
+class OrdersFragment : Fragment() {
     private lateinit var orderToolbar: Toolbar
     private lateinit var orderRecyclerView: RecyclerView
 

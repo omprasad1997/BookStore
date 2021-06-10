@@ -57,7 +57,8 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
                     usersJSONObj["FavouriteBooksList"] = favouriteList
 //                    jsonArray.add(usersJSONObj)
 //
-                    val fos = itemView.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
+                    val fos =
+                        itemView.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
                     fos.write(jsonArray.toString().toByteArray())
                     fos.close()
                     break
@@ -91,6 +92,7 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
                         itemView.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
                     fos.write(jsonArray.toString().toByteArray())
                     fos.close()
+
                     break
                 }
             }

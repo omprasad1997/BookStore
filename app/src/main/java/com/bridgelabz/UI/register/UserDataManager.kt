@@ -3,7 +3,7 @@ package com.bridgelabz.UI.register
 import android.content.Context
 import android.util.Log
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
-import com.bridgelabz.UI.model.UserRegistrationModel
+import com.bridgelabz.UI.model.UserModel
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
@@ -12,7 +12,7 @@ import java.io.File
 class UserDataManager(private val context: Context) {
     private lateinit var sharedPreferences: SharedPreferenceHelper
 
-    fun checkingDataFromJSONFile(users: UserRegistrationModel): Boolean {
+    fun checkingDataFromJSONFile(users: UserModel): Boolean {
 
         sharedPreferences = SharedPreferenceHelper(context)
 
@@ -20,12 +20,8 @@ class UserDataManager(private val context: Context) {
         val obj = JSONObject()
         val favouriteArray = JSONArray()
         val cartedArray  = JSONArray()
-//        val bookQuantity = 0
-//        val bookId = null
-//        val bookQuantityAndIdObj = JSONObject()
-//        bookQuantityAndIdObj["bookQuantity"] = bookQuantity
-//        bookQuantityAndIdObj["bookId"]  =  bookId
-//        cartedArray.add(bookQuantityAndIdObj)
+        val usersAddressArray = JSONArray()
+        val orderAddressArray = JSONArray()
 
         obj["id"] = currentUserId
         obj["userName"] = users.userName
@@ -34,6 +30,8 @@ class UserDataManager(private val context: Context) {
         obj["confirmPassword"] = users.confirmPassword
         obj["FavouriteBooksList"] = favouriteArray
         obj["CartBooksList"] = cartedArray
+        obj["usersAddressArray"] = usersAddressArray
+        obj["orderList"]    = orderAddressArray
 
         val jsonArray = readDataFromJSONFile()
         jsonArray.add(obj)
@@ -49,13 +47,6 @@ class UserDataManager(private val context: Context) {
         val path = context.filesDir.absolutePath
         val file = File(path, "use_credential.json")
 
-         //        for (i in 0..jsonArray.length()) {
-//            val obj = jsonArray.getJSONObject(i)
-//            val userName = obj.getString("userName")
-//            val email = obj.getString("email")
-//            val password = obj.getString("password")
-//            userList.add(UserRegistrationModel(userName, email, password))
-//        }
          Log.e("readFile", "File Exist ${file.exists()}")
         return if(file.exists()) {
             val data = file.readText()

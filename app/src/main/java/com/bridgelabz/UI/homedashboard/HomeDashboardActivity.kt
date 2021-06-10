@@ -12,12 +12,14 @@ import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookFragment
 import com.bridgelabz.UI.cart.CartFragment
 import com.bridgelabz.UI.login.LoginActivity
+import com.bridgelabz.UI.orders.OrdersFragment
 import com.bridgelabz.UI.wishlist.WishListFragment
 import com.bridgelabz.bookstore.R
 
 class HomeDashboardActivity : AppCompatActivity() {
     private val bookFragment = BookFragment()
     private val cartFragment = CartFragment()
+    private val ordersFragment = OrdersFragment()
     private val wishListFragment = WishListFragment()
     private lateinit  var sharedPreferenceHelper:  SharedPreferenceHelper
 
@@ -29,7 +31,11 @@ class HomeDashboardActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "BookStore"
         sharedPreferenceHelper =  SharedPreferenceHelper(this)
-        setBookFragment(bookFragment)
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, bookFragment)
+            commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,6 +50,7 @@ class HomeDashboardActivity : AppCompatActivity() {
                 true
             }
             R.id.orders ->{
+                setBookFragment(ordersFragment)
                 Toast.makeText(applicationContext, "click on orders", Toast.LENGTH_LONG).show()
                 return true
             }
@@ -55,7 +62,7 @@ class HomeDashboardActivity : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.cartIncrementButton ->{
+            R.id.cart ->{
                 setBookFragment(cartFragment)
                 Toast.makeText(applicationContext, "click on cart", Toast.LENGTH_LONG).show()
                 return true
@@ -73,10 +80,5 @@ class HomeDashboardActivity : AppCompatActivity() {
             replace(R.id.fragment_container, bookFragment).addToBackStack(null)
             commit()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 }

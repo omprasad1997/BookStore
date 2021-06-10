@@ -18,6 +18,7 @@ import com.bridgelabz.UI.model.BookModel
 import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
 import com.bumptech.glide.Glide
+import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
 class BookDescriptionFragment(private val book: BookModel) : Fragment() {
@@ -71,7 +72,6 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
     }
 
     private fun onBackPressed() {
-
         bookDescriptionToolbar.title = "Book Store"
         bookDescriptionToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         bookDescriptionToolbar.setNavigationOnClickListener {
@@ -105,11 +105,13 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
                     "favouriteChecked: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
                 )
                 if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
-                    val cartBookList = usersJSONObj["CartBooksList"] as ArrayList<Int>
-                    cartBookList.add(bookId)
+                    val cartBookList = usersJSONObj["CartBooksList"] as JSONArray
+                    val cartJsonObj = JSONObject()
+                    cartJsonObj["bookQuantity"] = 1
+                    cartBookList.add(cartJsonObj)
+                    cartJsonObj["bookId"] = bookId
                     usersJSONObj["CartBooksList"] = cartBookList
-//                    jsonArray.add(usersJSONObj)
-//
+
                     val fos = context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
                     fos.write(jsonArray.toString().toByteArray())
                     fos.close()
