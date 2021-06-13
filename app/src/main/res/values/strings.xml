@@ -20,4 +20,5 @@
     <string name="sign_out">Sign out</string>
     <string name="rupee_symbol">₹.</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="strike_through_text"><strike>%s</strike></string>
 </resources>

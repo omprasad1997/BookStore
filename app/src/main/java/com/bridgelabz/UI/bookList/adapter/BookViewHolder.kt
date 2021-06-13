@@ -1,6 +1,8 @@
 package com.bridgelabz.UI.bookList.adapter
 
 import android.content.Context
+import android.graphics.Paint
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -105,7 +107,12 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
         ratingOfBook.text = bookResponseModel.rating
         reviewCount.text = bookResponseModel.review
         discountedPriceOfBook.text = bookResponseModel.discountedPrice
-        originalPriceOfBook.text = bookResponseModel.originalPrice
+
+        originalPriceOfBook.apply {
+            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            text = bookResponseModel.originalPrice
+        }
+
         discountInPercentage.text = bookResponseModel.discountInPercentage
         addFavouriteButton.isChecked = bookResponseModel.isFavourite
 

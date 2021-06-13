@@ -1,4 +1,4 @@
-package com.bridgelabz.UI.model
+package com.bridgelabz.UI.model.responsemodel
 
 data class AddressResponseModel(
     val mobile: String,

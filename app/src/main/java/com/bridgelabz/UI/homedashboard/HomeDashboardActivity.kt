@@ -14,6 +14,7 @@ import com.bridgelabz.UI.bookList.BookFragment
 import com.bridgelabz.UI.cart.CartFragment
 import com.bridgelabz.UI.login.LoginActivity
 import com.bridgelabz.UI.orders.OrdersFragment
+import com.bridgelabz.UI.profile.ProfileFragment
 import com.bridgelabz.UI.wishlist.WishListFragment
 import com.bridgelabz.bookstore.R
 
@@ -22,6 +23,7 @@ class HomeDashboardActivity : AppCompatActivity() {
     private val cartFragment = CartFragment()
     private val ordersFragment = OrdersFragment()
     private val wishListFragment = WishListFragment()
+    private val profileFragment = ProfileFragment()
     private lateinit  var sharedPreferenceHelper:  SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,7 @@ class HomeDashboardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.profile -> {
+                setBookFragment(profileFragment)
                 Toast.makeText(applicationContext, "click on profile", Toast.LENGTH_LONG).show()
                 true
             }

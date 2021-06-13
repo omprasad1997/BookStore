@@ -199,7 +199,7 @@
                     android:id="@+id/originalPriceOfBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1065.5"
+                    android:text="@string/strike_through_text"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

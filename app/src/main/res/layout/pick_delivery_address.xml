@@ -33,7 +33,7 @@
             android:id="@+id/mobileNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:hint="Mobile"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +53,7 @@
             android:id="@+id/flatNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:hint="Flat" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/streetName"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Street"
@@ -90,7 +90,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cityName"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="City" />
@@ -109,7 +109,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/stateName"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="State" />
@@ -128,7 +128,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/pinCodeNumber"
-            android:background="#A0ABE6"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Pincode"

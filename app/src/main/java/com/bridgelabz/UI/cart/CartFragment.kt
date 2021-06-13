@@ -44,7 +44,7 @@ class CartFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        cartToolbar = view.findViewById(R.id.cart_toolbar)
+        cartToolbar = view.findViewById(R.id.profile_toolbar)
         cartRecyclerView = view.findViewById(R.id.cartRecyclerView)
         cartProceedToBuyButton = view.findViewById(R.id.proceedToBuy)
         setUpAdapter(view)

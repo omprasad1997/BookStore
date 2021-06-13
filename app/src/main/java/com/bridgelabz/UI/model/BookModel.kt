@@ -1,5 +1,7 @@
 package com.bridgelabz.UI.model
 
+import com.bridgelabz.UI.model.responsemodel.BookResponseModel
+
 data class BookModel(
     var bookId: Int,
     var bookName: String,

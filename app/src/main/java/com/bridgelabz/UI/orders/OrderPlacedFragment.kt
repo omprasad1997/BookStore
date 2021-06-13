@@ -1,6 +1,5 @@
 package com.bridgelabz.UI.orders
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,12 +14,18 @@ import androidx.fragment.app.FragmentManager
 import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookDataManager
-import com.bridgelabz.UI.bookList.BookFragment
-import com.bridgelabz.UI.model.OrderResponseModel
+import com.bridgelabz.UI.model.responsemodel.CartResponseModel
+import com.bridgelabz.UI.model.responsemodel.OrderResponseModel
+import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
-import org.json.simple.JSONArray
-import org.json.simple.JSONObject
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.File
+import java.io.FileWriter
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class OrderPlacedFragment : Fragment() {
@@ -29,7 +34,7 @@ class OrderPlacedFragment : Fragment() {
     private lateinit var orderId: TextView
     private lateinit var date: TextView
     private lateinit var time: TextView
-    private val TAG = "OrderPlacedFragmen"
+    private val TAG = "OrderPlacedFragment"
 
 
     override fun onCreateView(
@@ -53,49 +58,65 @@ class OrderPlacedFragment : Fragment() {
         setViews()
 
         continueShoppingButton.setOnClickListener {
-//            addToOrders(it)
+            addToOrders(it)
             parentFragmentManager.popBackStack(
                 Constants.BACK_STACK_KEY_BOOK_LIST,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
-//            beginTransaction()?.replace(
-//                R.id.fragment_container, BookFragment()
-//            )?.commit()
         }
     }
 
-//    private fun addToOrders(it: View) {
-//        val userDataManager = UserDataManager(it.context)
-//        val bookDataManager = BookDataManager(it.context)
-//        val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
-//
-//        val jsonArray = userDataManager.readDataFromJSONFile()
-//
-//        for (i in 0 until jsonArray.size) {
-//            val usersJSONObj = jsonArray[i] as JSONObject
-//            Log.e(
-//                TAG,
-//                "Orders details: ${sharedPreferenceHelper.getLoggedInUserId()} : $usersJSONObj"
-//            )
-//            if (sharedPreferenceHelper.getLoggedInUserId() == usersJSONObj["id"]) {
-//                val userOrderList = usersJSONObj["orderList"] as JSONArray
-//                val userAddressJsonObj = JSONObject()
-//
-//                userOrderList["orderId"] = System.currentTimeMillis().toString()
-//                userOrderList["orderTotal"] = orderResponseModel.orderTotal
-//                userOrderList["cartItems"] = bookDataManager.getCartItemBooks()
-//                userOrderList["orderDate"] = orderResponseModel.orderDate
-//
-//
-//               userOrderList.add(userAddressJsonObj)
-//
-//                val fos = it.context.openFileOutput("use_credential.json", Context.MODE_PRIVATE)
-//                fos.write(jsonArray.toString().toByteArray())
-//                fos.close()
-//                break
-//            }
-//        }
-//    }
+    private fun addToOrders(it: View) {
+        val userDataManager = UserDataManager(it.context)
+        val bookDataManager = BookDataManager(it.context)
+        val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
+        val cartItems = bookDataManager.getCartItemBooks()
+
+        val cartItemResponses = cartItems.map {
+            CartResponseModel(
+                it.bookQuantity,
+                it.book.bookId
+            )
+        }
+        val totalPrice = bookDataManager.getTotalPrice(cartItems)
+        Log.e(TAG, "addToOrders: $totalPrice")
+        val orderId = System.currentTimeMillis()
+        val dateTimeString =
+            SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault()).format(Date(orderId))
+
+        val orderResponseModel =
+            OrderResponseModel(
+                orderId,
+                totalPrice,
+                cartItemResponses,
+                dateTimeString
+            )
+
+        val path = context?.filesDir?.absolutePath
+        val file = File(path, "use_credential.json")
+        val userListType = object : TypeToken<ArrayList<UserModel>>() {}.type
+
+        val listOfUsers: ArrayList<UserModel> = Gson().fromJson(file.readText(), userListType)
+        val user = listOfUsers.findLast {
+            it.id == sharedPreferenceHelper.getLoggedInUserId()
+        }
+
+        user?.orderList?.add(orderResponseModel)
+
+        val cartBookListRemoving = user?.cartBookList
+
+        while (cartBookListRemoving!!.isNotEmpty()) {
+            Log.e(TAG, "addToOrders:cartBookListRemoving ${cartBookListRemoving.removeAt(0)}}")
+        }
+
+        Log.e(TAG, "addToOrders: $listOfUsers ${file.path}")
+        val fileWriter = FileWriter(file)
+        fileWriter.use {
+            Gson().toJson(listOfUsers, it)
+        }
+
+    }
+
 
     private fun setViews() {
         orderId.text = System.currentTimeMillis().toString()

@@ -28,6 +28,7 @@ class UserDataManager(private val context: Context) {
         obj["email"] = users.email
         obj["password"] = users.password
         obj["confirmPassword"] = users.confirmPassword
+        obj["userProfileImage"] = users.userProfileImage
         obj["FavouriteBooksList"] = favouriteArray
         obj["CartBooksList"] = cartedArray
         obj["usersAddressArray"] = usersAddressArray

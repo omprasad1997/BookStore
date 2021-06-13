@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.BookModel
-import com.bridgelabz.UI.model.BookResponseModel
+import com.bridgelabz.UI.model.responsemodel.BookResponseModel
 import com.bridgelabz.UI.model.CartModel
 import com.bridgelabz.UI.model.UserModel
 import com.google.gson.Gson
@@ -105,6 +105,16 @@ class BookDataManager(private val context: Context?) {
             return null
         }
         return json
+    }
+
+    fun getTotalPrice(cartItemList: java.util.ArrayList<CartModel>): Double {
+        var totalPrice = 0.0
+        for (i in 0 until cartItemList.size) {
+            val cartBookQuantity = cartItemList[i].bookQuantity
+            val cartBookPrice = cartItemList[i].book.discountedPrice.toDouble()
+            totalPrice += (cartBookQuantity * cartBookPrice)
+        }
+        return totalPrice
     }
 
 }

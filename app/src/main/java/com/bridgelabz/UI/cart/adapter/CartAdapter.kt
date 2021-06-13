@@ -9,15 +9,17 @@ import com.bridgelabz.bookstore.R
 
 class CartAdapter(
     private val cartBookItem: ArrayList<CartModel>,
-    private val cartItemDecrementHandler: (position: Int, bookId:Int) -> Unit,
-    private val cartItemIncrementHandler: (bookId:Int) -> Unit
+    private val cartItemDecrementHandler: (position: Int, bookId: Int) -> Unit,
+    private val cartItemIncrementHandler: (bookId: Int) -> Unit
 ) :
     RecyclerView.Adapter<CartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         return CartViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cart_layout_item, parent, false), cartItemDecrementHandler, cartItemIncrementHandler
+                .inflate(R.layout.cart_layout_item, parent, false),
+            cartItemDecrementHandler,
+            cartItemIncrementHandler
         )
     }
 

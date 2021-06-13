@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
-import com.bridgelabz.UI.model.AddressResponseModel
+import com.bridgelabz.UI.model.responsemodel.AddressResponseModel
 import com.bridgelabz.UI.orders.OrderPlacedFragment
 import com.bridgelabz.UI.register.UserDataManager
 import com.bridgelabz.bookstore.R
@@ -89,14 +89,15 @@ class PickDeliveryAddressFragment : Fragment() {
             Toast.makeText(it.context, "Pincode is not valid", Toast.LENGTH_LONG).show()
             return
         } else {
-            addressResponseModel = AddressResponseModel(
-                mobileNumber,
-                flatNumber,
-                streetName,
-                cityName,
-                stateName,
-                pinCode
-            )
+            addressResponseModel =
+                AddressResponseModel(
+                    mobileNumber,
+                    flatNumber,
+                    streetName,
+                    cityName,
+                    stateName,
+                    pinCode
+                )
             addDataTouUsersFile(it)
             activity?.supportFragmentManager?.beginTransaction()?.replace(
                 R.id.fragment_container, OrderPlacedFragment()

@@ -1,16 +1,15 @@
 package com.bridgelabz.UI.register
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bridgelabz.UI.model.AddressResponseModel
-import com.bridgelabz.UI.model.CartResponseModel
-import com.bridgelabz.UI.model.OrderResponseModel
+import com.bridgelabz.UI.model.responsemodel.AddressResponseModel
+import com.bridgelabz.UI.model.responsemodel.CartResponseModel
+import com.bridgelabz.UI.model.responsemodel.OrderResponseModel
 import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.bookstore.R
 
@@ -51,7 +50,6 @@ class RegisterActivity : AppCompatActivity() {
         if (userName.isEmpty() || (userName.length < 3)) {
             enteredUserName.error = "Your name is not valid"
         } else {
-            Log.e(TAG, "isUserNameValid: true" )
             return true
         }
         return false
@@ -105,8 +103,9 @@ class RegisterActivity : AppCompatActivity() {
         val userList = ArrayList<UserModel>()
         val userAddress = ArrayList<AddressResponseModel>()
         val orderList = ArrayList<OrderResponseModel>()
+        val userImage = ""
 
-        val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList)
+        val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList, userImage)
         userList.add(userRegistrationModelClass)
         val userDataManager = UserDataManager(applicationContext)
 
