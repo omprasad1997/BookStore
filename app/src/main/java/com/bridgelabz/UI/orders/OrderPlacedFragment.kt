@@ -13,11 +13,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
 import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
-import com.bridgelabz.UI.bookList.BookDataManager
+import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.model.responsemodel.CartResponseModel
 import com.bridgelabz.UI.model.responsemodel.OrderResponseModel
 import com.bridgelabz.UI.model.UserModel
-import com.bridgelabz.UI.register.UserDataManager
+import com.bridgelabz.UI.datamanager.UserDataManager
 import com.bridgelabz.bookstore.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -31,9 +31,9 @@ import kotlin.collections.ArrayList
 class OrderPlacedFragment : Fragment() {
     private lateinit var continueShoppingButton: Button
     private lateinit var orderToolbar: Toolbar
-    private lateinit var orderId: TextView
-    private lateinit var date: TextView
-    private lateinit var time: TextView
+    private lateinit var orderIdTextView: TextView
+    private lateinit var dateTextView: TextView
+    private lateinit var timeTextView: TextView
     private val TAG = "OrderPlacedFragment"
 
 
@@ -49,9 +49,9 @@ class OrderPlacedFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        orderId = view.findViewById(R.id.orderId)
-        date = view.findViewById(R.id.date)
-        time = view.findViewById(R.id.time)
+        orderIdTextView = view.findViewById(R.id.orderId)
+        dateTextView = view.findViewById(R.id.date)
+        timeTextView = view.findViewById(R.id.time)
         continueShoppingButton = view.findViewById(R.id.continueShoppingButton)
         orderToolbar = view.findViewById(R.id.order_toolbar)
 
@@ -67,8 +67,10 @@ class OrderPlacedFragment : Fragment() {
     }
 
     private fun addToOrders(it: View) {
-        val userDataManager = UserDataManager(it.context)
-        val bookDataManager = BookDataManager(it.context)
+        val userDataManager =
+            UserDataManager(it.context)
+        val bookDataManager =
+            BookDataManager(it.context)
         val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
         val cartItems = bookDataManager.getCartItemBooks()
 
@@ -103,11 +105,11 @@ class OrderPlacedFragment : Fragment() {
 
         user?.orderList?.add(orderResponseModel)
 
-        val cartBookListRemoving = user?.cartBookList
+        user?.cartBookList = ArrayList()
 
-        while (cartBookListRemoving!!.isNotEmpty()) {
-            Log.e(TAG, "addToOrders:cartBookListRemoving ${cartBookListRemoving.removeAt(0)}}")
-        }
+//        while (cartBookListRemoving!!.isNotEmpty()) {
+//            Log.e(TAG, "addToOrders:cartBookListRemoving ${cartBookListRemoving.removeAt(0)}}")
+//        }
 
         Log.e(TAG, "addToOrders: $listOfUsers ${file.path}")
         val fileWriter = FileWriter(file)
@@ -119,7 +121,10 @@ class OrderPlacedFragment : Fragment() {
 
 
     private fun setViews() {
-        orderId.text = System.currentTimeMillis().toString()
+        val currentTime = System.currentTimeMillis()
+        orderIdTextView.text = currentTime.toString()
+        dateTextView.text   = SimpleDateFormat("dd/MM/yyyy ", Locale.getDefault()).format(Date(currentTime))
+        timeTextView.text = SimpleDateFormat("hh:mm a ", Locale.getDefault()).format(Date(currentTime))
     }
 
     private fun onBackPressed() {

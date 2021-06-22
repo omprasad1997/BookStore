@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -53,11 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="#8E8B8B"
+        android:background="#713636"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/add_address_button" />
 
     <ImageView
         android:id="@+id/profileImageView"
@@ -69,5 +70,27 @@
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_toolbar" />
+
+    <Button
+        android:id="@+id/add_address_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/curvy_shape"
+        android:text="Add Address"
+        app:backgroundTint="#F44336"
+        app:layout_constraintStart_toStartOf="@+id/proofileEmailTextView"
+        app:layout_constraintTop_toBottomOf="@+id/proofileEmailTextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/show_address_in_profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

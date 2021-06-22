@@ -12,6 +12,7 @@ data class BookModel(
     var discountedPrice: String,
     var originalPrice: String,
     var discountInPercentage: String,
+    var description:String,
     var isFavourite: Boolean = false,
     var isCarted: Boolean = false
 ) {
@@ -24,6 +25,7 @@ data class BookModel(
         bookResponseModel.review,
         bookResponseModel.discountedPrice,
         bookResponseModel.originalPrice,
-        bookResponseModel.discountInPercentage
+        bookResponseModel.discountInPercentage,
+        bookResponseModel.description
     )
 }

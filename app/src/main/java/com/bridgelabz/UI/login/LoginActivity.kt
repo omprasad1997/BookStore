@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.homedashboard.HomeDashboardActivity
 import com.bridgelabz.UI.register.RegisterActivity
-import com.bridgelabz.UI.register.UserDataManager
+import com.bridgelabz.UI.datamanager.UserDataManager
 import com.bridgelabz.bookstore.R
 import org.json.simple.JSONObject
 

@@ -2,7 +2,6 @@ package com.bridgelabz.UI.bookList.adapter
 
 import android.content.Context
 import android.graphics.Paint
-import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
@@ -11,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.model.BookModel
-import com.bridgelabz.UI.register.UserDataManager
+import com.bridgelabz.UI.datamanager.UserDataManager
 import com.bridgelabz.bookstore.R
 import com.bumptech.glide.Glide
 import org.json.simple.JSONObject
@@ -40,7 +39,8 @@ class BookViewHolder(view: View, handler: (bookResponse: BookModel) -> Unit) :
     }
 
     private fun favouriteChecked(bookResponseModel: BookModel, checked: Boolean) {
-        userDataManager = UserDataManager(itemView.context)
+        userDataManager =
+            UserDataManager(itemView.context)
         sharedPreferenceHelper = SharedPreferenceHelper(itemView.context)
 
         val bookId = bookResponseModel.bookId

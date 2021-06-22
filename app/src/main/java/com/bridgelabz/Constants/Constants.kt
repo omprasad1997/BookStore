@@ -5,4 +5,5 @@ object Constants {
     const val KEY = "logged"
     const val LOGGED_IN_USER_ID  = "LoggedInUserId"
     const val BACK_STACK_KEY_BOOK_LIST = "BookListFragment"
+    const val BACK_STACK_KEY_USER_PROFILE = "ProfileFragment"
 }

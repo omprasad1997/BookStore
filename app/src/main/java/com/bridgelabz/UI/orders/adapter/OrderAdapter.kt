@@ -11,7 +11,7 @@ import com.bridgelabz.bookstore.R
 class OrderAdapter(
     private val orderList: ArrayList<OrderResponseModel>?,
     private val bookList: List<BookModel>,
-    private val bookReviewHandler: (position:Int) -> Unit
+    private val bookReviewHandler: (orderResponseModel: OrderResponseModel) -> Unit
 ) :
     RecyclerView.Adapter<OrderViewHolder>() {
 

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bridgelabz.UI.datamanager.UserDataManager
 import com.bridgelabz.UI.model.responsemodel.AddressResponseModel
 import com.bridgelabz.UI.model.responsemodel.CartResponseModel
 import com.bridgelabz.UI.model.responsemodel.OrderResponseModel
@@ -25,8 +26,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.title = "Register"
         initViews()
         setClickToRegisterButton()
     }
@@ -107,7 +106,8 @@ class RegisterActivity : AppCompatActivity() {
 
         val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList, userImage)
         userList.add(userRegistrationModelClass)
-        val userDataManager = UserDataManager(applicationContext)
+        val userDataManager =
+            UserDataManager(applicationContext)
 
         val isRegisteredIn = userDataManager.checkingDataFromJSONFile(userRegistrationModelClass)
 

@@ -5,17 +5,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
+import com.bridgelabz.UI.address.PickDeliveryAddressFragment
+import com.bridgelabz.UI.address.adapter.ShowAddressAdapter
 import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.bookstore.R
 import com.bumptech.glide.Glide
@@ -30,6 +35,8 @@ class ProfileFragment : Fragment() {
     private lateinit var profileImageView: ImageView
     private lateinit var profileToolbar: Toolbar
     private lateinit var imageFilePath: Uri
+    private lateinit var addAddressButton: Button
+    private lateinit var showAddressInProfileRecyclerVew: RecyclerView
     private val TAG = "ProfileFragment"
 
     override fun onCreateView(
@@ -49,8 +56,57 @@ class ProfileFragment : Fragment() {
         profileEmailTextView = view.findViewById(R.id.proofileEmailTextView)
         profileImageView = view.findViewById(R.id.profileImageView)
         profileToolbar = view.findViewById(R.id.profile_toolbar)
+        addAddressButton = view.findViewById(R.id.add_address_button)
+        showAddressInProfileRecyclerVew =
+            view.findViewById(R.id.show_address_in_profile_recycler_view)
 
         setProfileImageDetails(view)
+
+        val user = getUserFromFile(view)
+        if (user?.userAddress!!.isNotEmpty()) {
+            loadAddressList(user)
+        }
+
+        val isAddressClicked = true
+        val bundle = Bundle()
+        bundle.putBoolean("addAddressChecked", isAddressClicked)
+
+        val pickDeliveryAddressFragment = PickDeliveryAddressFragment()
+        pickDeliveryAddressFragment.arguments = bundle
+
+        pickDeliveryAddressFragment.afterAddressSubmitted = {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
+        addAddressButton.setOnClickListener {
+
+            activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.fragment_container, pickDeliveryAddressFragment
+            )?.addToBackStack(null)?.commit()
+        }
+    }
+
+    private fun getUserFromFile(view: View): UserModel? {
+        val sharedPreferenceHelper = SharedPreferenceHelper(view.context)
+        val path = context?.filesDir?.absolutePath
+        val file = File(path, "use_credential.json")
+        val userListType = object : TypeToken<ArrayList<UserModel>>() {}.type
+
+        val listOfUsers: ArrayList<UserModel> = Gson().fromJson(file.readText(), userListType)
+        val user = listOfUsers.findLast {
+            it.id == sharedPreferenceHelper.getLoggedInUserId()
+        }
+        return user
+    }
+
+    private fun loadAddressList(user: UserModel?) {
+
+        val showAddressList = user?.userAddress
+        showAddressInProfileRecyclerVew.layoutManager = LinearLayoutManager(view?.context)
+        val showAdapter = ShowAddressAdapter(showAddressList)
+        showAddressInProfileRecyclerVew.adapter = showAdapter
+        showAdapter.notifyDataSetChanged()
+
     }
 
     private fun setProfileImageDetails(view: View) {

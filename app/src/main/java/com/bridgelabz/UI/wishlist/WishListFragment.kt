@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bridgelabz.UI.bookList.BookDataManager
+import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.bookList.BookDescriptionFragment
 import com.bridgelabz.UI.bookList.adapter.BookAdapter
 import com.bridgelabz.UI.model.BookModel
@@ -20,9 +20,9 @@ import com.bridgelabz.bookstore.R
 
 
 class WishListFragment : Fragment() {
-    private lateinit var wishListRecyclerView:RecyclerView
+    private lateinit var wishListRecyclerView: RecyclerView
     private lateinit var bookAdapter: BookAdapter
-    private lateinit var bookDataManager:BookDataManager
+    private lateinit var bookDataManager: BookDataManager
     private lateinit var wishListToolbar: Toolbar
 
 
@@ -30,7 +30,7 @@ class WishListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_wish_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_wish_list, container, false)
         initViews(view)
         onBackPressed()
         return view
@@ -40,19 +40,20 @@ class WishListFragment : Fragment() {
         if (view != null) {
             wishListRecyclerView = view.findViewById(R.id.wishListRecyclerView)
             wishListToolbar = view.findViewById(R.id.wish_list_toolbar)
-            bookDataManager = BookDataManager(context)
+            bookDataManager =
+                BookDataManager(context)
         }
-            setUpAdapter()
+        setUpAdapter()
     }
 
     private fun setUpAdapter() {
         val favourites: ArrayList<BookModel> = getFavouriteBooks()
         wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        bookAdapter =  BookAdapter(favourites){
+        bookAdapter = BookAdapter(favourites) {
             Toast.makeText(context, "book clicked ${it.bookName}", Toast.LENGTH_SHORT).show()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_container, BookDescriptionFragment(it))
-                commit()
+                replace(R.id.fragment_container, BookDescriptionFragment(it)).addToBackStack(null)
+                    .commit()
             }
         }
         wishListRecyclerView.adapter = bookAdapter
@@ -61,9 +62,10 @@ class WishListFragment : Fragment() {
 
     private fun getFavouriteBooks(): ArrayList<BookModel> {
         val favouriteBooks = ArrayList<BookModel>()
-        val bookDataManager = BookDataManager(context)
-        for(book in bookDataManager.getBookList()){
-            if(book.isFavourite)
+        val bookDataManager =
+            BookDataManager(context)
+        for (book in bookDataManager.getBookList()) {
+            if (book.isFavourite)
                 favouriteBooks.add(book)
         }
         return favouriteBooks
@@ -74,7 +76,7 @@ class WishListFragment : Fragment() {
         wishListToolbar.title = "WishList"
         wishListToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         wishListToolbar.setNavigationOnClickListener {
-            Log.e("WishListFragment", "onBackPressed: called" )
+            Log.e("WishListFragment", "onBackPressed: called")
             activity?.supportFragmentManager?.popBackStack()
         }
     }

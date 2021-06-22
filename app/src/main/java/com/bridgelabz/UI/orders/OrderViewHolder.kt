@@ -13,10 +13,11 @@ import com.bumptech.glide.Glide
 class OrderViewHolder(
     view: View,
     private val bookList: List<BookModel>,
-    private val bookReviewHandler: (position: Int) -> Unit
+    private val bookReviewHandler: (orderResponseModel: OrderResponseModel) -> Unit
 ) : RecyclerView.ViewHolder(view) {
 
     private var TAG = "OrderViewHolder"
+    private lateinit var orderResponseModel: OrderResponseModel
     private val orderIdTextView = view.findViewById<TextView>(R.id.order_Id)
     private val orderDateAndTimeTextView = view.findViewById<TextView>(R.id.order_date_Time)
     private val orderBookImageView = view.findViewById<ImageView>(R.id.orderBookImageView)
@@ -24,13 +25,12 @@ class OrderViewHolder(
 
     init {
         bookReviewButton.setOnClickListener {
-            bookReviewHandler(adapterPosition)
+            bookReviewHandler(orderResponseModel)
         }
-
     }
 
-
     fun bind(orderResponseModel: OrderResponseModel) {
+        this.orderResponseModel = orderResponseModel
         orderIdTextView.text = orderResponseModel.orderId.toString()
         orderDateAndTimeTextView.text = orderResponseModel.orderDate
 

@@ -6,14 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.FragmentManager
-import com.bridgelabz.Constants.Constants
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
+import com.bridgelabz.UI.address.adapter.AddressAdapter
 import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.UI.orders.OrderPlacedFragment
 import com.bridgelabz.bookstore.R
@@ -23,14 +22,9 @@ import java.io.File
 
 
 class AddressFragment : Fragment() {
-    private lateinit var mobileNumber: TextView
-    private lateinit var flatNumber: TextView
-    private lateinit var streetName: TextView
-    private lateinit var cityName: TextView
-    private lateinit var stateName: TextView
-    private lateinit var pinCode: TextView
-    private lateinit var pickAddressButton: Button
+
     private lateinit var addressToolbar: Toolbar
+    private lateinit var addressRecyclerView: RecyclerView
     private val TAG = "AddressFragment"
 
     override fun onCreateView(
@@ -42,38 +36,28 @@ class AddressFragment : Fragment() {
 
         initViews(view)
         onBackPressed()
-        pickAddressButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.fragment_container, OrderPlacedFragment()
-            )?.addToBackStack(null)?.commit()
-        }
+
         return view
     }
 
     private fun initViews(view: View) {
-
-        mobileNumber = view.findViewById(R.id.mobile_number)
-        flatNumber = view.findViewById(R.id.flat_number)
-        streetName = view.findViewById(R.id.street_name)
-        cityName = view.findViewById(R.id.city_name)
-        stateName = view.findViewById(R.id.state_name)
-        pinCode = view.findViewById(R.id.pin_code_number)
-        pickAddressButton = view.findViewById(R.id.pick_address)
         addressToolbar = view.findViewById(R.id.address_toolbar)
-
+        addressRecyclerView = view.findViewById(R.id.address_recycler_view)
         setViews(view)
     }
 
     private fun setViews(view: View) {
-        val userModel = getUserAddressArray(view)
-        Log.e(TAG, "Check User address : ${userModel!!.userAddress}")
-        val user = userModel.userAddress[0]
-        mobileNumber.text = user.mobile
-        flatNumber.text = user.flat
-        streetName.text = user.street
-        cityName.text = user.city
-        stateName.text = user.state
-        pinCode.text = user.pinCode
+        val user = getUserAddressArray(view)
+        Log.e(TAG, "Check User address : ${user!!.userAddress}")
+
+        val userAddressList = user.userAddress
+        addressRecyclerView.layoutManager = LinearLayoutManager(view.context)
+        addressRecyclerView.adapter =
+            AddressAdapter(userAddressList) {
+                activity?.supportFragmentManager?.beginTransaction()?.replace(
+                    R.id.fragment_container, OrderPlacedFragment()
+                )?.addToBackStack(null)?.commit()
+            }
     }
 
     private fun getUserAddressArray(view: View): UserModel? {

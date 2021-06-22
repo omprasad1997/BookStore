@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.address.AddressFragment
-import com.bridgelabz.UI.bookList.BookDataManager
+import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.cart.adapter.CartAdapter
-import com.bridgelabz.UI.pickaddress.PickDeliveryAddressFragment
-import com.bridgelabz.UI.register.UserDataManager
+import com.bridgelabz.UI.address.PickDeliveryAddressFragment
+import com.bridgelabz.UI.datamanager.UserDataManager
 import com.bridgelabz.bookstore.R
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
@@ -28,7 +28,8 @@ class CartFragment : Fragment() {
     private lateinit var cartToolbar: Toolbar
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cartProceedToBuyButton: Button
-    private var pickDeliveryAddressFragment = PickDeliveryAddressFragment()
+    private var pickDeliveryAddressFragment =
+        PickDeliveryAddressFragment()
     private var addressFragment = AddressFragment()
     private var TAG = "CartFragment"
 
@@ -51,7 +52,8 @@ class CartFragment : Fragment() {
     }
 
     private fun setUpAdapter(view: View) {
-        val bookDataManager = BookDataManager(view.context)
+        val bookDataManager =
+            BookDataManager(view.context)
         cartRecyclerView.layoutManager = LinearLayoutManager(view.context) // require context
         val cartItemBookList = bookDataManager.getCartItemBooks()
         cartAdapter =
@@ -62,6 +64,10 @@ class CartFragment : Fragment() {
             })
 
         val itemPresentInCart = checkBookPresentInCart(view)
+        val bundle = Bundle()
+        bundle.putBoolean("addAddressChecked", false)
+
+
         if (itemPresentInCart) {
             cartProceedToBuyButton.visibility = VISIBLE
             cartProceedToBuyButton.setOnClickListener {
@@ -70,6 +76,7 @@ class CartFragment : Fragment() {
                         R.id.fragment_container, addressFragment
                     )?.addToBackStack(null)?.commit()
                 } else {
+                    pickDeliveryAddressFragment.arguments = bundle
                     activity?.supportFragmentManager?.beginTransaction()?.replace(
                         R.id.fragment_container, pickDeliveryAddressFragment
                     )?.addToBackStack(null)?.commit()
@@ -87,7 +94,8 @@ class CartFragment : Fragment() {
     ) {
 
         val sharedPreferenceHelper = SharedPreferenceHelper(context)
-        val userDataManager = UserDataManager(context)
+        val userDataManager =
+            UserDataManager(context)
         val jsonArray = userDataManager.readDataFromJSONFile()
 
         for (i in 0 until jsonArray.size) {
@@ -128,7 +136,8 @@ class CartFragment : Fragment() {
         position: Int
     ) {
         val sharedPreferenceHelper = SharedPreferenceHelper(context)
-        val userDataManager = UserDataManager(context)
+        val userDataManager =
+            UserDataManager(context)
         val jsonArray = userDataManager.readDataFromJSONFile()
 
         for (i in 0 until jsonArray.size) {
@@ -170,7 +179,8 @@ class CartFragment : Fragment() {
     }
 
     private fun checkBookPresentInCart(it: View): Boolean {
-        val userDataManager = UserDataManager(it.context)
+        val userDataManager =
+            UserDataManager(it.context)
         val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
 
         val jsonArray = userDataManager.readDataFromJSONFile()
@@ -191,7 +201,8 @@ class CartFragment : Fragment() {
     }
 
     private fun checkForAddress(it: View): Boolean {
-        val userDataManager = UserDataManager(it.context)
+        val userDataManager =
+            UserDataManager(it.context)
         val sharedPreferenceHelper = SharedPreferenceHelper(it.context)
 
         val jsonArray = userDataManager.readDataFromJSONFile()

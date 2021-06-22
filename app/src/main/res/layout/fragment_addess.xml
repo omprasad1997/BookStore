@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.bridgelabz.UI.address.AddressFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,138 +11,21 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@android:color/white"
         tools:ignore="MissingConstraints">
-
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="18dp"
-        android:paddingTop="18dp"
-        android:paddingBottom="18dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@id/address_toolbar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mobile:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Flat:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Street:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="City:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="State:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pin code:"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-
-            <TextView
-                android:id="@+id/mobile_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1234567890"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/flat_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12345"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/street_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nagar"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/city_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nanded"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/state_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Maharashtra"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/pin_code_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="431605"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/pick_address"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-       android:background="@drawable/curvy_shape"
-        android:textSize="10sp"
-        android:text="Pick Address"
-        app:backgroundTint="#F44336"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/address_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/address_toolbar"
+        tools:layout_editor_absoluteX="29dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

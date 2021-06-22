@@ -1,22 +1,26 @@
 package com.bridgelabz.UI.homedashboard
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.BookFragment
 import com.bridgelabz.UI.cart.CartFragment
+import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.login.LoginActivity
 import com.bridgelabz.UI.orders.OrdersFragment
 import com.bridgelabz.UI.profile.ProfileFragment
 import com.bridgelabz.UI.wishlist.WishListFragment
 import com.bridgelabz.bookstore.R
+
 
 class HomeDashboardActivity : AppCompatActivity() {
     private val bookFragment = BookFragment()
@@ -24,7 +28,9 @@ class HomeDashboardActivity : AppCompatActivity() {
     private val ordersFragment = OrdersFragment()
     private val wishListFragment = WishListFragment()
     private val profileFragment = ProfileFragment()
-    private lateinit  var sharedPreferenceHelper:  SharedPreferenceHelper
+    private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
+    private lateinit var textCartItemCount: TextView
+    private lateinit var bookDataManager: BookDataManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.home_dashboard_activity)
@@ -33,7 +39,7 @@ class HomeDashboardActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "BookStore"
-        sharedPreferenceHelper =  SharedPreferenceHelper(this)
+        sharedPreferenceHelper = SharedPreferenceHelper(this)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container, bookFragment)
@@ -43,6 +49,19 @@ class HomeDashboardActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+
+        val menuItem = menu!!.findItem(R.id.cart)
+
+        val actionView: View = menuItem.actionView
+        textCartItemCount = actionView.findViewById(R.id.cart_badge) as TextView
+
+        setupBadge()
+
+        bookFragment.updatingCartItemCount = {
+            setupBadge()
+        }
+
+        actionView.setOnClickListener { onOptionsItemSelected(menuItem) }
         return true
     }
 
@@ -53,12 +72,12 @@ class HomeDashboardActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "click on profile", Toast.LENGTH_LONG).show()
                 true
             }
-            R.id.orders ->{
+            R.id.orders -> {
                 setBookFragment(ordersFragment)
                 Toast.makeText(applicationContext, "click on orders", Toast.LENGTH_LONG).show()
                 return true
             }
-            R.id.sign_out ->{
+            R.id.sign_out -> {
                 Toast.makeText(applicationContext, "click on Sign out", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -66,14 +85,17 @@ class HomeDashboardActivity : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.cart ->{
+            R.id.cart -> {
                 supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, cartFragment).addToBackStack(Constants.BACK_STACK_KEY_BOOK_LIST).
-                    commit()
+                    replace(
+                        R.id.fragment_container,
+                        cartFragment
+                    ).addToBackStack(Constants.BACK_STACK_KEY_BOOK_LIST).commit()
                 }
                 Toast.makeText(applicationContext, "click on cart", Toast.LENGTH_LONG).show()
                 return true
-            } R.id.wish_list ->{
+            }
+            R.id.wish_list -> {
                 setBookFragment(wishListFragment)
                 Toast.makeText(applicationContext, "click on wish list", Toast.LENGTH_LONG).show()
                 return true
@@ -87,5 +109,12 @@ class HomeDashboardActivity : AppCompatActivity() {
             replace(R.id.fragment_container, bookFragment).addToBackStack(null)
             commit()
         }
+    }
+
+    private fun setupBadge() {
+        bookDataManager = BookDataManager(this)
+        val cartItemCount = bookDataManager.getCartItemBooks()
+
+        textCartItemCount.text = cartItemCount.size.toString()
     }
 }

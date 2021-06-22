@@ -6,16 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
-import com.bridgelabz.UI.bookList.BookDataManager
-import com.bridgelabz.UI.bookList.BookFragment
+import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.bookreview.BookReviewFragment
 import com.bridgelabz.UI.model.UserModel
 import com.bridgelabz.UI.orders.adapter.OrderAdapter
@@ -51,7 +48,8 @@ class OrdersFragment : Fragment() {
     }
 
     private fun setUpAdapter(view: View) {
-        val bookDataManager = BookDataManager(view.context)
+        val bookDataManager =
+            BookDataManager(view.context)
         val bookList = bookDataManager.getBookList()
 
         val sharedPreferenceHelper = SharedPreferenceHelper(view.context)
@@ -74,10 +72,14 @@ class OrdersFragment : Fragment() {
         Log.e(TAG, "setUpAdapter: $orderPriceList")
 
         val orderList = user?.orderList
+        val bundle = Bundle()
+        val bookReviewFragment = BookReviewFragment()
         orderRecyclerView.layoutManager = LinearLayoutManager(view.context)
         orderRecyclerView.adapter = OrderAdapter(orderList, bookList) {
+            bundle.putInt("BookId", it.cartItems[0].bookId)
+            bookReviewFragment.arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.fragment_container, BookReviewFragment()
+                R.id.fragment_container, bookReviewFragment
             )?.addToBackStack(null)?.commit()
         }
 
