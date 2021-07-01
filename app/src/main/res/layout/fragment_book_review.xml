@@ -53,7 +53,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/curvy_shape"
         android:text="Submit"
-        app:backgroundTint="#F44336"
+        app:backgroundTint="#0099ff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

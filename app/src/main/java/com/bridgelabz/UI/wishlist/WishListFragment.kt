@@ -50,7 +50,6 @@ class WishListFragment : Fragment() {
         val favourites: ArrayList<BookModel> = getFavouriteBooks()
         wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         bookAdapter = BookAdapter(favourites) {
-            Toast.makeText(context, "book clicked ${it.bookName}", Toast.LENGTH_SHORT).show()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, BookDescriptionFragment(it)).addToBackStack(null)
                     .commit()

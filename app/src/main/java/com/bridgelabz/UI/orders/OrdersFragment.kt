@@ -42,7 +42,7 @@ class OrdersFragment : Fragment() {
 
     private fun initViews(view: View) {
         orderToolbar = view.findViewById(R.id.order_toolbar)
-        orderRecyclerView = view.findViewById(R.id.orderRecyclerView)
+        orderRecyclerView = view.findViewById(R.id.ordersRecyclerView)
         totalOrderPriceTextView = view.findViewById(R.id.total_price_in_orders)
         setUpAdapter(view)
     }

@@ -8,7 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         tools:context="com.bridgelabz.UI.bookList.BookDescriptionFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -59,7 +58,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:text="TextView"
-            android:textColor="#020202"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="₹"
-            android:textColor="#020202"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/bookAuthorName"
             app:layout_constraintTop_toTopOf="@+id/priceOfBook" />
@@ -98,7 +95,6 @@
             android:layout_marginTop="16dp"
             android:scrollbarSize="16sp"
             android:text="TextView"
-            android:textColor="#020202"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -124,7 +120,7 @@
             android:background="@drawable/curvy_shape"
             android:enabled="true"
             android:text="Add To Cart"
-            app:backgroundTint="#F44336"
+            app:backgroundTint="#0099ff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priceOfBook" />
 
@@ -168,7 +164,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="Description"
-            android:textColor="#020202"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

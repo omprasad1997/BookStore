@@ -7,7 +7,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="create_an_account">Create an account</string>
-    <string name="already_a_member">Already a member?</string>
+    <string name="already_have_an_account">Already have an account ? Sign In</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
@@ -20,4 +20,11 @@
     <string name="rupee_symbol">₹.</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
     <string name="strike_through_text"><strike>%s</strike></string>
+    <string name="change_theme">Change Theme</string>
+    <string name="paymentactivity">PaymentActivity</string>
+    <string name="your_free_trial_has_expired">Your free trial has expired!!</string>
+    <string name="payment_message">Thank you for signing up for BookStore!.We hope you have enjoyed
+        free trial.To continue enjoying you need to upgrade your account. </string>
+    <string name="card_number">Card Number</string>
+
 </resources>

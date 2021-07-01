@@ -33,6 +33,8 @@ class UserDataManager(private val context: Context) {
         obj["CartBooksList"] = cartedArray
         obj["usersAddressArray"] = usersAddressArray
         obj["orderList"]    = orderAddressArray
+        obj["freeTrial"]  = users.freeTrial
+        obj["isPremiumUser"] = users.isPremiumUser
 
         val jsonArray = readDataFromJSONFile()
         jsonArray.add(obj)

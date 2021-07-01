@@ -78,7 +78,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/curvy_shape"
         android:text="Add Address"
-        app:backgroundTint="#F44336"
+        app:backgroundTint="#0099ff"
         app:layout_constraintStart_toStartOf="@+id/proofileEmailTextView"
         app:layout_constraintTop_toBottomOf="@+id/proofileEmailTextView" />
 

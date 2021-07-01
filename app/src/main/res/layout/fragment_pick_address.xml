@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/curvy_shape"
                 android:text="Checkout"
-                app:backgroundTint="#F44336" />
+                app:backgroundTint="#0099ff" />
 
         </LinearLayout>
 

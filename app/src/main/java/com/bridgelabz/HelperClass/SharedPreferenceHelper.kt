@@ -25,4 +25,13 @@ class SharedPreferenceHelper(context: Context)  {
     }
 
     fun getLoggedInUserId() = sharedPreferences.getLong(Constants.LOGGED_IN_USER_ID, -1)
+
+    fun getDarkModeValue() = sharedPreferences.getBoolean(Constants.IS_DARK_MODE, false)
+
+    fun setDarkModeValue(value: Boolean) {
+        with(sharedPreferences.edit()) {
+            putBoolean(Constants.IS_DARK_MODE, value)
+            apply()
+        }
+    }
 }

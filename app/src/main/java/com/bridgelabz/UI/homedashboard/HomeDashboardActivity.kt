@@ -6,8 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.bridgelabz.Constants.Constants
@@ -31,6 +31,7 @@ class HomeDashboardActivity : AppCompatActivity() {
     private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
     private lateinit var textCartItemCount: TextView
     private lateinit var bookDataManager: BookDataManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.home_dashboard_activity)
@@ -69,16 +70,13 @@ class HomeDashboardActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.profile -> {
                 setBookFragment(profileFragment)
-                Toast.makeText(applicationContext, "click on profile", Toast.LENGTH_LONG).show()
                 true
             }
             R.id.orders -> {
                 setBookFragment(ordersFragment)
-                Toast.makeText(applicationContext, "click on orders", Toast.LENGTH_LONG).show()
                 return true
             }
             R.id.sign_out -> {
-                Toast.makeText(applicationContext, "click on Sign out", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 this.sharedPreferenceHelper.setLoggedIn(false)
@@ -92,12 +90,21 @@ class HomeDashboardActivity : AppCompatActivity() {
                         cartFragment
                     ).addToBackStack(Constants.BACK_STACK_KEY_BOOK_LIST).commit()
                 }
-                Toast.makeText(applicationContext, "click on cart", Toast.LENGTH_LONG).show()
+                return true
+            }
+            R.id.changeTheme -> {
+                val isDarkModeOn = sharedPreferenceHelper.getDarkModeValue()
+                 if (!isDarkModeOn) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    this.sharedPreferenceHelper.setDarkModeValue(true)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    this.sharedPreferenceHelper.setDarkModeValue(false)
+                }
                 return true
             }
             R.id.wish_list -> {
                 setBookFragment(wishListFragment)
-                Toast.makeText(applicationContext, "click on wish list", Toast.LENGTH_LONG).show()
                 return true
             }
             else -> super.onOptionsItemSelected(item)

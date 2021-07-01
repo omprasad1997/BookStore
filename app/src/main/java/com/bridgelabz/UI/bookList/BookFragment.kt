@@ -45,7 +45,6 @@ class BookFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val bookAdapter = BookAdapter(bookList) {
-            Toast.makeText(context, "book clicked ${it.bookName}", Toast.LENGTH_SHORT).show()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, BookDescriptionFragment(it))
                     .addToBackStack(null).commit()

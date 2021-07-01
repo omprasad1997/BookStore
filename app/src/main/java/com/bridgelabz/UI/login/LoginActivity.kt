@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.homedashboard.HomeDashboardActivity
 import com.bridgelabz.UI.register.RegisterActivity
@@ -29,11 +30,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initializationOfViews() {
-        userEmail    = findViewById(R.id.userEmail)
+        userEmail = findViewById(R.id.userEmail)
         userPassword = findViewById(R.id.userPassword)
-        login        = findViewById(R.id.login)
+        login = findViewById(R.id.login)
         sharedPreferenceHelper = SharedPreferenceHelper(this)
-
     }
 
     private fun userLogin() {
@@ -43,9 +43,9 @@ class LoginActivity : AppCompatActivity() {
         val userDataManager = UserDataManager(this)
         val jsonArray = userDataManager.readDataFromJSONFile()
 
-        for(i in 0 until jsonArray.size){
+        for (i in 0 until jsonArray.size) {
             val obj = jsonArray[i] as JSONObject
-            if(email == obj["email"] &&  password == obj["password"]){
+            if (email == obj["email"] && password == obj["password"]) {
                 isLoginIn = true
                 break
             }
@@ -55,13 +55,13 @@ class LoginActivity : AppCompatActivity() {
     private fun checkLogin() {
         login.setOnClickListener {
             userLogin()
-           if(isLoginIn){
+            if (isLoginIn) {
                 val intent = Intent(this, HomeDashboardActivity::class.java)
                 startActivity(intent)
                 this.sharedPreferenceHelper.setLoggedIn(true)
                 finish()
-            }else {
-                Toast.makeText(this , "Email or Password is incorrect",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Email or Password is incorrect", Toast.LENGTH_LONG).show()
             }
         }
     }

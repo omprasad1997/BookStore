@@ -179,7 +179,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/curvy_shape"
             android:text="Submit"
-            app:backgroundTint="#F44336"
+            app:backgroundTint="#0099ff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />

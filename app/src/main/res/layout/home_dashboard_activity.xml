@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            app:titleTextColor="@android:color/white">
+            app:titleTextColor="@android:color/white"
+            android:layout_marginBottom="8dp">
 
         </androidx.appcompat.widget.Toolbar>
 

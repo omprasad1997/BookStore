@@ -15,5 +15,7 @@ data class UserModel(
     @SerializedName("CartBooksList") var cartBookList: ArrayList<CartResponseModel>,
     @SerializedName("usersAddressArray") val userAddress: ArrayList<AddressResponseModel>,
     val orderList: ArrayList<OrderResponseModel>,
-    var userProfileImage: String
+    var userProfileImage: String,
+    var freeTrial:Int = 5,
+    var isPremiumUser:Boolean = false
 )

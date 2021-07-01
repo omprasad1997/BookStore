@@ -107,10 +107,6 @@ class OrderPlacedFragment : Fragment() {
 
         user?.cartBookList = ArrayList()
 
-//        while (cartBookListRemoving!!.isNotEmpty()) {
-//            Log.e(TAG, "addToOrders:cartBookListRemoving ${cartBookListRemoving.removeAt(0)}}")
-//        }
-
         Log.e(TAG, "addToOrders: $listOfUsers ${file.path}")
         val fileWriter = FileWriter(file)
         fileWriter.use {

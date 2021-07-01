@@ -103,8 +103,10 @@ class RegisterActivity : AppCompatActivity() {
         val userAddress = ArrayList<AddressResponseModel>()
         val orderList = ArrayList<OrderResponseModel>()
         val userImage = ""
+        val freeTrial = 5
+        val isPremiumUser = false
 
-        val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList, userImage)
+        val userRegistrationModelClass = UserModel(System.currentTimeMillis(),userName, userEmail, userPassword, userConfirmPassword, favouriteBookList, cartBookList,userAddress, orderList, userImage, freeTrial, isPremiumUser)
         userList.add(userRegistrationModelClass)
         val userDataManager =
             UserDataManager(applicationContext)

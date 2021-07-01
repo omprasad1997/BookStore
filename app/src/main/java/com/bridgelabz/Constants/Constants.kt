@@ -6,4 +6,5 @@ object Constants {
     const val LOGGED_IN_USER_ID  = "LoggedInUserId"
     const val BACK_STACK_KEY_BOOK_LIST = "BookListFragment"
     const val BACK_STACK_KEY_USER_PROFILE = "ProfileFragment"
+    const val IS_DARK_MODE = "is dark mode"
 }
