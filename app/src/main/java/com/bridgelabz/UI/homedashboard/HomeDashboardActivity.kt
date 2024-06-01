@@ -53,8 +53,8 @@ class HomeDashboardActivity : AppCompatActivity() {
 
         val menuItem = menu!!.findItem(R.id.cart)
 
-        val actionView: View = menuItem.actionView
-        textCartItemCount = actionView.findViewById(R.id.cart_badge) as TextView
+        val actionView: View? = menuItem?.actionView
+        textCartItemCount = actionView?.findViewById(R.id.cart_badge) as TextView
 
         setupBadge()
 

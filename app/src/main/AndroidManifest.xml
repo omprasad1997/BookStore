@@ -14,7 +14,8 @@
         <activity android:name="com.bridgelabz.UI.payment.PaymentMessageActivity" />
         <activity android:name="com.bridgelabz.UI.register.RegisterActivity" />
         <activity android:name="com.bridgelabz.UI.login.LoginActivity" />
-        <activity android:name="com.bridgelabz.UI.splashActivity.SplashScreenActivity">
+        <activity android:name="com.bridgelabz.UI.splashActivity.SplashScreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
