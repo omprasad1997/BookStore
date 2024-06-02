@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bridgelabz.bookstore">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:name="com.bridgelabz.ApplicationClass.MyApplication"
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookStore">
-        <activity android:name="com.bridgelabz.UI.payment.PaymentActivity"></activity>
+        <activity android:name="com.bridgelabz.UI.payment.PaymentActivity" />
         <activity android:name="com.bridgelabz.UI.payment.PaymentMessageActivity" />
         <activity android:name="com.bridgelabz.UI.register.RegisterActivity" />
         <activity android:name="com.bridgelabz.UI.login.LoginActivity" />

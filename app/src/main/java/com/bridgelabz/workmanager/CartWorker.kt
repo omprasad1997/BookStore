@@ -28,11 +28,19 @@ class CartWorker(private val context: Context, param: WorkerParameters) : Worker
             notificationManager.createNotificationChannel(notificationChannel)
         }
 
-        val notification: Notification.Builder = Notification.Builder(context, "Cart")
-            .setContentTitle(NOTIFICATION_TITLE)
-            .setContentText(NOTIFICATION_MESSAGE)
+        val notification: Notification.Builder
 
-        notificationManager.notify(1, notification.build())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notification = Notification.Builder(context, "Cart")
+                .setContentTitle(NOTIFICATION_TITLE)
+                .setContentText(NOTIFICATION_MESSAGE)
+
+            notificationManager.notify(1, notification.build())
+        } else {
+            //TODO("VERSION.SDK_INT < O")
+        }
+
+
 
         return Result.success()
     }

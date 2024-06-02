@@ -7,4 +7,5 @@ object Constants {
     const val BACK_STACK_KEY_BOOK_LIST = "BookListFragment"
     const val BACK_STACK_KEY_USER_PROFILE = "ProfileFragment"
     const val IS_DARK_MODE = "is dark mode"
+    const val BOOK_MODEL = "bookModel"
 }

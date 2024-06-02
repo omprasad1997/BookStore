@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.bridgelabz.Constants.Constants
 import com.bridgelabz.HelperClass.SharedPreferenceHelper
 import com.bridgelabz.UI.bookList.adapter.ReviewAdapter
 import com.bridgelabz.UI.datamanager.ReviewDataManager
@@ -30,7 +31,7 @@ import com.bumptech.glide.Glide
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
-class BookDescriptionFragment(private val book: BookModel) : Fragment() {
+class BookDescriptionFragment : Fragment() {
     private lateinit var bookImageImageView: ImageView
     private lateinit var bookTitleTextView: TextView
     private lateinit var bookAuthorNameTextView: TextView
@@ -43,6 +44,8 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
     private lateinit var ratingOfBookTextView: TextView
     private lateinit var reviewNumberTextView: TextView
     private val TAG = "BookDescriptionFragment"
+
+    lateinit var  book: BookModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +77,10 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
             reviewNumberTextView = view.findViewById(R.id.reviewNumberTextView)
         }
         setContentBook()
-        loadReviewsOfBook(view!!.context)
+        view?.let {
+            loadReviewsOfBook(it.context)
+        }
+
 
     }
 
@@ -143,6 +149,7 @@ class BookDescriptionFragment(private val book: BookModel) : Fragment() {
     }
 
     private fun setContentBook() {
+        book = arguments?.getParcelable(Constants.BOOK_MODEL)!!
         bookTitleTextView.text = book.bookName
         bookAuthorNameTextView.text = book.bookAuthor
 

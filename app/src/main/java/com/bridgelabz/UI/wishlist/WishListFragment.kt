@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bridgelabz.Constants.Constants
 import com.bridgelabz.UI.datamanager.BookDataManager
 import com.bridgelabz.UI.bookList.BookDescriptionFragment
 import com.bridgelabz.UI.bookList.adapter.BookAdapter
@@ -50,8 +51,14 @@ class WishListFragment : Fragment() {
         val favourites: ArrayList<BookModel> = getFavouriteBooks()
         wishListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         bookAdapter = BookAdapter(favourites) {
+            val fragment = BookDescriptionFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(Constants.BOOK_MODEL,it)
+
+            fragment.arguments = bundle
+
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_container, BookDescriptionFragment(it)).addToBackStack(null)
+                replace(R.id.fragment_container, fragment).addToBackStack(null)
                     .commit()
             }
         }

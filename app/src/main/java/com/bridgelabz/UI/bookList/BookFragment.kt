@@ -1,18 +1,16 @@
 package com.bridgelabz.UI.bookList
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.*
-import android.widget.TextView
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bridgelabz.Constants.Constants
 import com.bridgelabz.UI.bookList.adapter.BookAdapter
 import com.bridgelabz.UI.datamanager.BookDataManager
-import com.bridgelabz.UI.login.LoginActivity
 import com.bridgelabz.bookstore.R
 
 
@@ -45,8 +43,13 @@ class BookFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val bookAdapter = BookAdapter(bookList) {
+            val fragment = BookDescriptionFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(Constants.BOOK_MODEL,it)
+
+           fragment.arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_container, BookDescriptionFragment(it))
+                replace(R.id.fragment_container, fragment)
                     .addToBackStack(null).commit()
             }
         }

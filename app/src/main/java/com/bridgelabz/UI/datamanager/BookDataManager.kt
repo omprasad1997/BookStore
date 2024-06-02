@@ -90,7 +90,7 @@ class BookDataManager(private val context: Context?) {
         var totalPrice = 0.0
         for (i in 0 until cartItemList.size) {
             val cartBookQuantity = cartItemList[i].bookQuantity
-            val cartBookPrice = cartItemList[i].book.discountedPrice.toDouble()
+            val cartBookPrice = cartItemList[i].book.discountedPrice!!.toDouble()
             totalPrice += (cartBookQuantity * cartBookPrice)
         }
         return totalPrice

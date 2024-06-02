@@ -38,7 +38,7 @@ class OrderViewHolder(
         val bookId = orderResponseModel.cartItems[0].bookId
         for (i in bookList.indices) {
             if (bookList[i].bookId == bookId) {
-                storeImageString = bookList[i].bookImage
+                storeImageString = bookList[i].bookImage!!
                 break
             }
         }
